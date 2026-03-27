@@ -1,0 +1,145 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: DCAT/DSP wrapper conformance for ADV exchanges
+#
+# PURPOSE
+# Validate that dataset self-descriptions (DCAT-based) are
+# discoverable and consistently reference an ADV operational
+# profile.  Aligned with the IDSA Dataspace Protocol (DSP).
+#
+# REPLACES
+# model/ids-wrapper-shapes.ttl (deprecated ids:Resource target)
+#
+# NOTE
+# Namespaces use W3ID identifiers which may not yet resolve
+# in a browser.
+#################################################################
+
+adv:DatasetShape
+  a sh:NodeShape ;
+  sh:targetClass dcat:Dataset ;
+
+  # -- Title (human-readable)
+  sh:property [
+    sh:path dct:title ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Dataset must have dct:title (string)." ;
+  ] ;
+
+  # -- Description (human-readable)
+  sh:property [
+    sh:path dct:description ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Dataset must have dct:description (string)." ;
+  ] ;
+
+  # -- Stable identifier for the offer
+  sh:property [
+    sh:path dct:identifier ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[A-Za-z0-9._:/\\-]+$" ;
+    sh:message "Dataset must have dct:identifier (string). Use letters, digits, dots, dashes, slashes or colons." ;
+  ] ;
+
+  # -- ADV profile identifier (must be one of the registered profile IDs)
+  sh:property [
+    sh:path adv:profileId ;
+    sh:minCount 1 ;
+    sh:in ("adv.observation" "adv.parcel-crop" "adv.intervention" "adv.animal" "adv.alert") ;
+    sh:message "Dataset must declare adv:profileId set to one of: adv.observation, adv.parcel-crop, adv.intervention, adv.animal, adv.alert." ;
+  ] ;
+
+  # -- ADV profile version (semver)
+  sh:property [
+    sh:path adv:profileVersion ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[0-9]+\\.[0-9]+\\.[0-9]+$" ;
+    sh:message "Dataset must declare adv:profileVersion in MAJOR.MINOR.PATCH format, e.g., 1.0.0." ;
+  ] ;
+
+  # -- Conformance link to the ADV profile URI (recommended)
+  sh:property [
+    sh:path dct:conformsTo ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide dct:conformsTo as an IRI pointing to the ADV profile (e.g., https://w3id.org/adv/core#observation-v1)." ;
+  ] ;
+
+  # -- License IRI (recommended for discovery)
+  sh:property [
+    sh:path dct:license ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide dct:license as an IRI (e.g., a Creative Commons URL)." ;
+  ] ;
+
+  # -- Issued date (recommended)
+  sh:property [
+    sh:path dct:issued ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide dct:issued (xsd:dateTime) for the dataset metadata." ;
+  ] ;
+
+  # -- Publisher (recommended)
+  sh:property [
+    sh:path dct:publisher ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide dct:publisher as an IRI identifying the data provider." ;
+  ] ;
+
+  # -- Distribution (recommended — at least one)
+  sh:property [
+    sh:path dcat:distribution ;
+    sh:minCount 0 ;
+    sh:node adv:DistributionShape ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide at least one dcat:distribution describing how the data is available." ;
+  ] ;
+
+  # -- Usage policy (recommended)
+  sh:property [
+    sh:path odrl:hasPolicy ;
+    sh:minCount 0 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Warning ;
+    sh:message "Recommended: provide odrl:hasPolicy linking to an ODRL usage policy." ;
+  ] .
+
+
+#################################################################
+# Distribution sub-shape
+#################################################################
+
+adv:DistributionShape
+  a sh:NodeShape ;
+  sh:targetClass dcat:Distribution ;
+
+  sh:property [
+    sh:path dcat:mediaType ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Distribution must have dcat:mediaType (e.g., application/ld+json)." ;
+  ] ;
+
+  sh:property [
+    sh:path dcat:accessURL ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Distribution must have dcat:accessURL (IRI where the data can be retrieved)." ;
+  ] .

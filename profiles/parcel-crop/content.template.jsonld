@@ -1,17 +1,19 @@
 {
   "@context": {
-    "aim": "https://w3id.org/aim#",
+    "saref4agri": "https://saref.etsi.org/saref4agri/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "foodie": "http://foodie-cloud.com/model/foodie#",
     "adv": "https://w3id.org/adv/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "geojson": "https://purl.org/geojson/vocab#"
   },
 
   "@id": "https://data.your-domain.org/parcel/REPLACE_PARCEL_ID",
-  "@type": "aim:FeatureOfInterest",
+  "@type": "saref4agri:Parcel",
 
   "adv:externalId": "REPLACE_HUMAN_READABLE_FIELD_CODE_OR_ID",
 
-  "aim:hasGeometry": {
+  "geo:hasGeometry": {
     "@id": "https://data.your-domain.org/geometry/REPLACE_PARCEL_ID",
     "@type": "geojson:Polygon",
     "geojson:coordinates": [
@@ -26,13 +28,13 @@
     "geojson:crs": "EPSG:4326"
   },
 
-  "aim:hasCrop": {
+  "saref4agri:hasCrop": {
     "@id": "https://data.your-domain.org/crop/REPLACE_CROP_INSTANCE_ID",
-    "@type": "aim:Crop",
-    "aim:cropType": "REPLACE_IRI_TO_CROP_TYPE_EG_https://w3id.org/crop/Wheat"
+    "@type": "saref4agri:Crop",
+    "foodie:cropSpecies": "REPLACE_IRI_TO_CROP_TYPE_EG_https://w3id.org/crop/Wheat"
   },
 
-  "aim:area": { "@value": "REPLACE_DECIMAL_AREA", "@type": "xsd:decimal" },
+  "foodie:cropArea": { "@value": "REPLACE_DECIMAL_AREA", "@type": "xsd:decimal" },
 
   "adv:issuedAt": "REPLACE_OPTIONAL_UPDATE_TIME_UTC_EG_2025-09-21T10:35:02Z"
 }

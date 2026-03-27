@@ -1,36 +1,34 @@
 {
-    "@context": {
-      "aim": "https://w3id.org/aim#",
-      "adv": "https://w3id.org/adv/core#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "unit": "http://qudt.org/vocab/unit/"
-    },
-  
-    "@id": "https://data.example.org/observation/soilmoisture/field-a/2025-09-21T10:35:00Z",
-    "@type": "aim:Observation",
-  
-    "aim:resultTime": "2025-09-21T10:35:00Z",
-  
-    "aim:observedProperty": "https://w3id.org/phenomenon/soilMoisture",
-  
-    "aim:madeBySensor": {
-      "@id": "https://data.example.org/sensor/SM-10",
-      "@type": "aim:Sensor"
-    },
-  
-    "aim:hasFeatureOfInterest": {
-      "@id": "https://data.example.org/parcel/field-a",
-      "@type": "aim:FeatureOfInterest"
-    },
-  
-    "aim:hasResult": {
-      "aim:result": {
-        "aim:value": { "@value": "0.23", "@type": "xsd:decimal" },
-        "aim:unit": "unit:VolumeFraction"
-      }
-    },
-  
-    "adv:externalId": "SM-10-20250921T103500Z",
-    "adv:issuedAt": "2025-09-21T10:35:02Z"
-  }
-  
+  "@context": {
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "unit": "http://qudt.org/vocab/unit/"
+  },
+
+  "@id": "https://data.example.org/observation/soilmoisture/field-a/2025-09-21T10:35:00Z",
+  "@type": "sosa:Observation",
+
+  "sosa:resultTime": "2025-09-21T10:35:00Z",
+
+  "sosa:observedProperty": "https://w3id.org/phenomenon/soilMoisture",
+
+  "sosa:madeBySensor": {
+    "@id": "https://data.example.org/sensor/SM-10",
+    "@type": "sosa:Sensor"
+  },
+
+  "sosa:hasFeatureOfInterest": {
+    "@id": "https://data.example.org/parcel/field-a",
+    "@type": "sosa:FeatureOfInterest"
+  },
+
+  "sosa:hasResult": {
+    "qudt:numericValue": { "@value": "0.23", "@type": "xsd:decimal" },
+    "qudt:unit": "unit:VolumeFraction"
+  },
+
+  "adv:externalId": "SM-10-20250921T103500Z",
+  "adv:issuedAt": "2025-09-21T10:35:02Z"
+}

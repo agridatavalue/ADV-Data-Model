@@ -1,65 +1,121 @@
 # AIM Quick Reference for ADV Users
 
-This is a **practical cheat sheet** for the parts of the Agriculture Information Model (AIM) used by the ADV Data Model.  
-It’s written for implementers who only need to understand which AIM classes and properties appear in the ADV profiles.
+This is a **practical cheat sheet** for the parts of the Agriculture Information Model (AIM) used by the ADV Data Model v2.0.
+It's written for implementers who only need to understand which upstream classes and properties appear in the ADV profiles.
 
 ---
 
-## 🎯 Core AIM Classes Used by ADV
+## Upstream Vocabulary Sources
 
-| AIM Class (IRI) | Used In ADV Profile | Meaning |
-|-----------------|---------------------|----------|
-| `aim:Observation` | Observation | A measurement or estimation made by a sensor or process. |
-| `aim:FeatureOfInterest` | Observation, Parcel-Crop | The feature being observed or managed (e.g. field, plot, area). |
-| `aim:Activity` | Intervention | A field operation or management activity. |
-| `aim:Animal` | Animal | An animal, identified and described by species, birth, etc. |
-| `aim:Alert` | Alert | A notification or advisory event affecting a target feature. |
+ADV v2.0 uses terms from these established standards (all part of the AIM vocabulary stack):
 
----
-
-## ⚙️ Common AIM Properties
-
-| Property | Applies To | Description | Example |
-|-----------|-------------|-------------|----------|
-| `aim:resultTime` *(xsd:dateTime)* | Observation | When the result is valid. | `2025-09-21T10:35:00Z` |
-| `aim:observedProperty` *(IRI)* | Observation | What was measured or observed. | `https://w3id.org/phenomenon/soilMoisture` |
-| `aim:madeBySensor` *(IRI)* | Observation | The sensor or instrument that produced the result. | `https://data.example.org/sensor/SM-10` |
-| `aim:hasFeatureOfInterest` *(IRI)* | Observation, Activity, Alert | The thing or location being observed, acted on, or affected. | `https://data.example.org/parcel/field-a` |
-| `aim:hasResult → aim:result → aim:value` *(xsd:decimal)* | Observation | The numeric result of a measurement. | `0.23` |
-| `aim:hasResult → aim:result → aim:unit` *(IRI)* | Observation | The unit of measure (use QUDT IRI). | `unit:VolumeFraction` |
-| `aim:activityType` *(IRI)* | Activity | Type of operation or action performed. | `https://w3id.org/activity/Spraying` |
-| `aim:startTime`, `aim:endTime` *(xsd:dateTime)* | Activity, Alert | Start and end of an event or activity. | `2025-04-10T06:30:00Z` |
-| `aim:alertType`, `aim:severity` *(IRI)* | Alert | Category and severity of alert. | `…/Pest`, `…/High` |
-| `aim:species` *(IRI)* | Animal | Biological species of the animal. | `https://w3id.org/species/Bos_taurus` |
-| `aim:birthDate` *(xsd:date)* | Animal | Animal’s date of birth. | `2021-03-14` |
+| Prefix | Namespace | Standard |
+|--------|-----------|----------|
+| `sosa:` | `http://www.w3.org/ns/sosa/` | W3C Sensor, Observation, Sample, and Actuator |
+| `geo:` | `http://www.opengis.net/ont/geosparql#` | OGC GeoSPARQL |
+| `saref4agri:` | `https://saref.etsi.org/saref4agri/` | ETSI SAREF for Agriculture |
+| `foodie:` | `http://foodie-cloud.com/model/foodie#` | FOODIE ontology (via DEMETER/AIM) |
+| `qudt:` | `http://qudt.org/schema/qudt/` | QUDT Quantities, Units, Dimensions |
+| `prov:` | `http://www.w3.org/ns/prov#` | W3C Provenance Ontology |
+| `schema:` | `https://schema.org/` | Schema.org |
+| `dct:` | `http://purl.org/dc/terms/` | Dublin Core Terms |
+| `dcat:` | `http://www.w3.org/ns/dcat#` | W3C Data Catalog Vocabulary |
+| `odrl:` | `http://www.w3.org/ns/odrl/2/` | W3C ODRL (usage policies) |
 
 ---
 
-## 🧩 How to Use AIM in ADV
+## Core Classes Used by ADV
 
-- **You don’t need to import the full AIM ontology manually.**  
-  ADV SHACL files already reference AIM classes. Just fill the JSON-LD templates.
-
-- **If you need more AIM properties** (e.g. for extended metadata),  
-  add them using the same namespace (`https://w3id.org/aim#`).  
-  SHACL validation will accept additional properties beyond the required ones.
-
-- **Always use IRIs instead of plain strings** for things like crop type, operation type, or unit — this keeps data interoperable.
-
----
-
-## 📘 Version and Reference
-
-ADV Data Model v1.1 is aligned with:
-
-- **AIM release:** current master (as of October 2025)  
-- **Namespace root:** `https://w3id.org/aim#`  
-- **Official repository:** https://github.com/AgricultureInformationModel/AIM  
+| Class (full IRI) | Used In ADV Profile | Meaning |
+|-------------------|---------------------|---------|
+| `sosa:Observation` | Observation | A measurement or estimation made by a sensor or process. |
+| `sosa:FeatureOfInterest` | Observation, Intervention, Alert | The feature being observed or managed (e.g., field, plot, area). |
+| `sosa:Sensor` | Observation | The device or process that produced the observation. |
+| `saref4agri:Parcel` | Parcel-Crop | An agricultural parcel, field, or plot. |
+| `saref4agri:Crop` | Parcel-Crop | A crop instance associated with a parcel. |
+| `saref4agri:Animal` | Animal | An animal, identified and described by species, birth, etc. |
+| `foodie:Intervention` | Intervention | A field operation or management activity. |
+| `foodie:Alert` | Alert | A notification or advisory event affecting a target feature. |
+| `dcat:Dataset` | Wrapper (all profiles) | The dataset self-description for data space exchange. |
 
 ---
 
-## 🔗 When You Need AIM Locally
+## Common Properties by Profile
 
-For tools that require a local import, see the accompanying file  
-`pinned-import.ttl`, which points to the same official AIM ontology.  
+### Observation Profile
+| Property | Namespace | Description | Example |
+|----------|-----------|-------------|---------|
+| `sosa:resultTime` | W3C SOSA | When the result is valid | `2025-09-21T10:35:00Z` |
+| `sosa:observedProperty` | W3C SOSA | What was measured (IRI) | `https://w3id.org/phenomenon/soilMoisture` |
+| `sosa:madeBySensor` | W3C SOSA | The sensor that produced the result | `https://data.example.org/sensor/SM-10` |
+| `sosa:hasFeatureOfInterest` | W3C SOSA | The location or thing observed | `https://data.example.org/parcel/field-a` |
+| `sosa:hasResult` | W3C SOSA | The result node (contains value + unit) | — |
+| `qudt:numericValue` | QUDT | The numeric measurement value | `0.23` |
+| `qudt:unit` | QUDT | The unit of measure (IRI) | `unit:VolumeFraction` |
+
+### Parcel-Crop Profile
+| Property | Namespace | Description | Example |
+|----------|-----------|-------------|---------|
+| `geo:hasGeometry` | OGC GeoSPARQL | The parcel's spatial geometry | GeoJSON Polygon |
+| `saref4agri:hasCrop` | ETSI SAREF4AGRI | Link to a crop instance | — |
+| `foodie:cropSpecies` | FOODIE | IRI to crop species | `https://w3id.org/crop/Wheat` |
+| `foodie:cropArea` | FOODIE | Area in hectares | `2.45` |
+
+### Intervention Profile
+| Property | Namespace | Description | Example |
+|----------|-----------|-------------|---------|
+| `dct:type` | Dublin Core | Type of operation (IRI) | `https://w3id.org/activity/Spraying` |
+| `prov:startedAtTime` | W3C PROV | Start time | `2025-04-10T06:30:00Z` |
+| `prov:endedAtTime` | W3C PROV | End time | `2025-04-10T07:45:00Z` |
+| `sosa:hasFeatureOfInterest` | W3C SOSA | The target parcel | — |
+| `prov:used` | W3C PROV | Input material/product | — |
+| `prov:generated` | W3C PROV | Output product/result | — |
+
+### Animal Profile
+| Property | Namespace | Description | Example |
+|----------|-----------|-------------|---------|
+| `schema:species` | Schema.org | Biological species (IRI) | `https://w3id.org/species/Bos_taurus` |
+| `schema:birthDate` | Schema.org | Date of birth | `2021-03-14` |
+| `schema:gender` | Schema.org | Sex (IRI) | `https://w3id.org/vocab/sex/Female` |
+| `adv:productionType` | ADV | Production type (IRI) | `https://w3id.org/vocab/productionType/Dairy` |
+| `adv:hasParent` | ADV | Link to parent animal | — |
+
+### Alert Profile
+| Property | Namespace | Description | Example |
+|----------|-----------|-------------|---------|
+| `dct:type` | Dublin Core | Alert category (IRI) | `https://w3id.org/alertType/Pest` |
+| `adv:severity` | ADV | Severity level (IRI) | `https://w3id.org/severity/High` |
+| `dct:description` | Dublin Core | Human-readable message | "Aphid risk detected..." |
+| `sosa:hasFeatureOfInterest` | W3C SOSA | Affected location/entity | — |
+| `prov:startedAtTime` | W3C PROV | When the alert became active | `2025-06-02T08:00:00Z` |
+| `prov:endedAtTime` | W3C PROV | When the alert expired | `2025-06-05T18:00:00Z` |
+
+---
+
+## How to Use AIM in ADV
+
+- **You don't need to install the full AIM ontology.** ADV SHACL shapes already reference the correct upstream URIs. Just fill the JSON-LD templates.
+
+- **For JSON-LD producers**, use the ADV context file (`model/adv-context.jsonld`) which maps short names to the correct upstream URIs.
+
+- **If you need more properties** (e.g., for extended metadata), add them from the same upstream vocabularies (SOSA, SAREF4AGRI, FOODIE, etc.). SHACL validation will accept additional properties beyond the required ones.
+
+- **Always use IRIs instead of plain strings** for things like crop type, operation type, species, or unit.
+
+---
+
+## Version and Reference
+
+ADV Data Model v2.0 is aligned with:
+
+- **AIM (DEMETER/OGC SWG):** Uses actual AIM-aligned upstream URIs from SOSA, GeoSPARQL, SAREF4AGRI, and FOODIE.
+- **IDSA Dataspace Protocol:** Wrapper layer uses DCAT vocabulary with ODRL policies.
+- **Official AIM repository:** https://github.com/opengeospatial/aim-swg
+
+---
+
+## When You Need AIM Locally
+
+For tools that require a local import, see the accompanying file
+`pinned-import.ttl`, which points to the DEMETER aggregated ontology.
 You can use it as an entry point in editors, validators, or pipelines.

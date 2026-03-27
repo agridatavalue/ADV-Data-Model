@@ -1,28 +1,28 @@
 {
-    "@context": {
-      "aim": "https://w3id.org/aim#",
-      "adv": "https://w3id.org/adv/core#",
-      "xsd": "http://www.w3.org/2001/XMLSchema#"
-    },
-  
-    "@id": "https://data.example.org/animal/COW-1245",
-    "@type": "aim:Animal",
-  
-    "adv:externalId": "COW-1245",
-  
-    "aim:species": "https://w3id.org/species/Bos_taurus",
-  
-    "aim:birthDate": "2021-03-14",
-  
-    "aim:sex": "https://w3id.org/vocab/sex/Female",
-  
-    "aim:productionType": "https://w3id.org/vocab/productionType/Dairy",
-  
-    "aim:hasParent": {
-      "@id": "https://data.example.org/animal/COW-0801",
-      "@type": "aim:Animal"
-    },
-  
-    "adv:issuedAt": "2025-01-05T09:30:00Z"
-  }
-  
+  "@context": {
+    "saref4agri": "https://saref.etsi.org/saref4agri/",
+    "schema": "https://schema.org/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+
+  "@id": "https://data.example.org/animal/COW-1245",
+  "@type": "saref4agri:Animal",
+
+  "adv:externalId": "COW-1245",
+
+  "schema:species": "https://w3id.org/species/Bos_taurus",
+
+  "schema:birthDate": "2021-03-14",
+
+  "schema:gender": "https://w3id.org/vocab/sex/Female",
+
+  "adv:productionType": "https://w3id.org/vocab/productionType/Dairy",
+
+  "adv:hasParent": {
+    "@id": "https://data.example.org/animal/COW-0801",
+    "@type": "saref4agri:Animal"
+  },
+
+  "adv:issuedAt": "2025-01-05T09:30:00Z"
+}

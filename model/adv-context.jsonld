@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "adv": "https://w3id.org/adv/core#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "saref4agri": "https://saref.etsi.org/saref4agri/",
+    "foodie": "http://foodie-cloud.com/model/foodie#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "schema": "https://schema.org/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "geojson": "https://purl.org/geojson/vocab#",
+
+    "profileId":             { "@id": "adv:profileId" },
+    "profileVersion":        { "@id": "adv:profileVersion" },
+    "externalId":            { "@id": "adv:externalId" },
+    "issuedAt":              { "@id": "adv:issuedAt", "@type": "xsd:dateTime" },
+    "observedAt":            { "@id": "adv:observedAt", "@type": "xsd:dateTime" },
+    "severity":              { "@id": "adv:severity", "@type": "@id" },
+    "productionType":        { "@id": "adv:productionType", "@type": "@id" },
+    "hasParent":             { "@id": "adv:hasParent", "@type": "@id" },
+
+    "Observation":           "sosa:Observation",
+    "FeatureOfInterest":     "sosa:FeatureOfInterest",
+    "Sensor":                "sosa:Sensor",
+    "resultTime":            { "@id": "sosa:resultTime", "@type": "xsd:dateTime" },
+    "observedProperty":      { "@id": "sosa:observedProperty", "@type": "@id" },
+    "madeBySensor":          { "@id": "sosa:madeBySensor", "@type": "@id" },
+    "hasFeatureOfInterest":  { "@id": "sosa:hasFeatureOfInterest", "@type": "@id" },
+    "hasResult":             { "@id": "sosa:hasResult" },
+
+    "numericValue":          { "@id": "qudt:numericValue", "@type": "xsd:decimal" },
+    "quantityUnit":          { "@id": "qudt:unit", "@type": "@id" },
+
+    "Parcel":                "saref4agri:Parcel",
+    "Crop":                  "saref4agri:Crop",
+    "Animal":                "saref4agri:Animal",
+    "hasCrop":               { "@id": "saref4agri:hasCrop", "@type": "@id" },
+    "hasGeometry":           { "@id": "geo:hasGeometry" },
+
+    "cropSpecies":           { "@id": "foodie:cropSpecies", "@type": "@id" },
+    "cropArea":              { "@id": "foodie:cropArea", "@type": "xsd:decimal" },
+    "Intervention":          "foodie:Intervention",
+    "Alert":                 "foodie:Alert",
+
+    "species":               { "@id": "schema:species", "@type": "@id" },
+    "birthDate":             { "@id": "schema:birthDate", "@type": "xsd:date" },
+    "gender":                { "@id": "schema:gender", "@type": "@id" },
+
+    "startedAtTime":         { "@id": "prov:startedAtTime", "@type": "xsd:dateTime" },
+    "endedAtTime":           { "@id": "prov:endedAtTime", "@type": "xsd:dateTime" },
+    "used":                  { "@id": "prov:used", "@type": "@id" },
+    "generated":             { "@id": "prov:generated", "@type": "@id" },
+
+    "Dataset":               "dcat:Dataset",
+    "Distribution":          "dcat:Distribution",
+    "distribution":          { "@id": "dcat:distribution" },
+    "mediaType":             { "@id": "dcat:mediaType" },
+    "accessURL":             { "@id": "dcat:accessURL", "@type": "@id" },
+    "conformsTo":            { "@id": "dct:conformsTo", "@type": "@id" },
+    "hasPolicy":             { "@id": "odrl:hasPolicy", "@type": "@id" }
+  }
+}

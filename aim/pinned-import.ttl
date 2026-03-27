@@ -1,22 +1,35 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix aim: <https://w3id.org/aim#> .
 
 #################################################################
-# AIM Pinned Import
-# 
+# AIM Pinned Import  v2.0
+#
 # PURPOSE:
-# Provides a stable import reference to the official Agriculture
-# Information Model (AIM) ontology. This ensures that local tools,
-# validators, or triple stores can fetch or cache the correct file.
+# Provides a stable import reference to the Agriculture
+# Information Model (AIM / DEMETER) aggregated ontology.
+# This ensures that local tools, validators, or triple stores
+# can fetch or cache the correct upstream vocabulary files.
+#
+# CHANGE (v2.0):
+# - Points to the actual DEMETER aggregated ontology URI
+#   instead of the non-existent https://w3id.org/aim.
+# - Adds individual imports for the key upstream standards
+#   used by ADV profiles.
 #################################################################
 
 <> a owl:Ontology ;
    dct:title "AIM Ontology Import Stub for ADV" ;
-   dct:description "This file allows tools to import the official AIM ontology used by the ADV Data Model." ;
-   dct:issued "2025-10-31"^^xsd:date ;
+   dct:description "Allows tools to import the upstream vocabularies used by the ADV Data Model." ;
+   dct:issued "2026-03-27"^^xsd:date ;
    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
-   owl:imports <https://w3id.org/aim> ;
    dct:publisher <https://w3id.org/adv> ;
-   dct:hasVersion "1.1.0" .
+   dct:hasVersion "2.0.0" ;
+
+   # AIM aggregated ontology (DEMETER)
+   owl:imports <https://w3id.org/demeter/agri> ;
+
+   # Individual upstream standards for tools that need direct imports
+   owl:imports <http://www.w3.org/ns/sosa/> ;
+   owl:imports <http://www.opengis.net/ont/geosparql> ;
+   owl:imports <https://saref.etsi.org/saref4agri/> .

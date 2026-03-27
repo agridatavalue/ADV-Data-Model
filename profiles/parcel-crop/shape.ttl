@@ -1,19 +1,27 @@
-@prefix sh:   <http://www.w3.org/ns/shacl#> .
-@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-@prefix aim:  <https://w3id.org/aim#> .
-@prefix adv:  <https://w3id.org/adv/core#> .
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:        <http://www.opengis.net/ont/geosparql#> .
+@prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
+@prefix foodie:     <http://foodie-cloud.com/model/foodie#> .
+@prefix adv:        <https://w3id.org/adv/core#> .
 
 #################################################################
 # SHACL: ADV Parcel-Crop Profile v1.0.0
 #
 # PURPOSE
 # Defines minimal constraints for describing a parcel (field/plot)
-# and its associated crop, including identifiers, location, and crop type.
+# and its associated crop, including identifiers, location, and
+# crop type.
+#
+# UPSTREAM ALIGNMENT
+# Target class: saref4agri:Parcel (ETSI SAREF4AGRI)
+# Geometry:     geo:hasGeometry (OGC GeoSPARQL)
+# Crop:         saref4agri:Crop, foodie:cropSpecies (FOODIE/DEMETER)
 #################################################################
 
 adv:ParcelCropShape
   a sh:NodeShape ;
-  sh:targetClass aim:FeatureOfInterest ;
+  sh:targetClass saref4agri:Parcel ;
 
   #################################################################
   # 1) Parcel identifier (external or local)
@@ -29,41 +37,41 @@ adv:ParcelCropShape
   # 2) Geometry or spatial reference
   #################################################################
   sh:property [
-    sh:path aim:hasGeometry ;
+    sh:path geo:hasGeometry ;
     sh:minCount 1 ;
     sh:nodeKind sh:BlankNodeOrIRI ;
-    sh:message "Parcel must have aim:hasGeometry (reference to geometry or spatial object)." ;
+    sh:message "Parcel must have geo:hasGeometry (reference to geometry or spatial object)." ;
   ] ;
 
   #################################################################
   # 3) Crop association
   #################################################################
   sh:property [
-    sh:path aim:hasCrop ;
+    sh:path saref4agri:hasCrop ;
     sh:minCount 1 ;
     sh:nodeKind sh:BlankNodeOrIRI ;
-    sh:message "Parcel must have aim:hasCrop (linked crop instance)." ;
+    sh:message "Parcel must have saref4agri:hasCrop (linked crop instance)." ;
   ] ;
 
   #################################################################
   # 4) Crop type (species or category)
   #################################################################
   sh:property [
-    sh:path aim:cropType ;
+    sh:path foodie:cropSpecies ;
     sh:minCount 1 ;
     sh:nodeKind sh:IRI ;
-    sh:message "Crop must have aim:cropType (IRI to species or crop list entry)." ;
+    sh:message "Crop must have foodie:cropSpecies (IRI to species or crop list entry)." ;
   ] ;
 
   #################################################################
   # 5) Optional area size
   #################################################################
   sh:property [
-    sh:path aim:area ;
+    sh:path foodie:cropArea ;
     sh:maxCount 1 ;
     sh:datatype xsd:decimal ;
     sh:severity sh:Info ;
-    sh:message "Optional: aim:area (numeric, hectares or square meters)." ;
+    sh:message "Optional: foodie:cropArea (numeric, hectares or square meters)." ;
   ] ;
 
   #################################################################

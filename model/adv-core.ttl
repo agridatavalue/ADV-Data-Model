@@ -1,27 +1,37 @@
-@prefix adv:   <https://w3id.org/adv/core#> .
-@prefix dct:   <http://purl.org/dc/terms/> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix aim:   <https://w3id.org/aim#> .
-@prefix ids:   <https://w3id.org/idsa/core/> .
+@prefix adv:        <https://w3id.org/adv/core#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix sosa:       <http://www.w3.org/ns/sosa/> .
+@prefix geo:        <http://www.opengis.net/ont/geosparql#> .
+@prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
+@prefix foodie:     <http://foodie-cloud.com/model/foodie#> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#> .
 @base <https://w3id.org/adv/core#> .
 
 #################################################################
-# ADV Core Ontology
+# ADV Core Ontology  v2.0.0
 #
 # PURPOSE:
 # Minimal core vocabulary for the AgriDataValue (ADV) data model.
 # It defines profile identification, versioning, and a few
 # cross-cutting properties common to all ADV profiles.
+#
+# CHANGE (v2.0.0):
+# - Replaced placeholder aim: namespace with actual upstream URIs
+#   (SOSA, GeoSPARQL, SAREF4AGRI, FOODIE).
+# - Replaced ids:Resource target with dcat:Dataset (DSP alignment).
 #################################################################
 
-adv: a rdfs:Ontology ;
+adv: a owl:Ontology ;
   dct:title "ADV Core Ontology" ;
   dct:description "Core vocabulary defining ADV profiles, versioning, and cross-cutting terms for the AgriDataValue Data Model." ;
   dct:issued "2025-10-30"^^xsd:date ;
+  dct:modified "2026-03-27"^^xsd:date ;
   dct:license <https://creativecommons.org/licenses/by/4.0/> ;
   dct:publisher <https://w3id.org/adv> ;
-  dct:hasVersion "1.0.0" .
+  dct:hasVersion "2.0.0" .
 
 #################################################################
 # Profile model
@@ -29,7 +39,7 @@ adv: a rdfs:Ontology ;
 
 adv:Profile a rdfs:Class ;
   rdfs:label "ADV Profile" ;
-  rdfs:comment "A named, versioned constraint set over AIM content and the IDS wrapper for a specific data exchange scenario." .
+  rdfs:comment "A named, versioned constraint set over domain content and the DCAT wrapper for a specific data exchange scenario." .
 
 adv:profileId a rdfs:Property ;
   rdfs:label "profile identifier" ;
@@ -47,7 +57,7 @@ adv:appliesTo a rdfs:Property ;
   rdfs:label "applies to class" ;
   rdfs:domain adv:Profile ;
   rdfs:range rdfs:Class ;
-  rdfs:comment "Top-level AIM class constrained by the profile (e.g., aim:Observation)." .
+  rdfs:comment "Top-level domain class constrained by the profile." .
 
 #################################################################
 # Cross-cutting properties
@@ -66,49 +76,57 @@ adv:issuedAt a rdfs:Property ;
 adv:observedAt a rdfs:Property ;
   rdfs:label "observed at" ;
   rdfs:range xsd:dateTime ;
-  rdfs:comment "Observation timestamp for convenience; aligns with AIM observation semantics." .
+  rdfs:comment "Observation timestamp for convenience; aligns with sosa:resultTime semantics." .
 
 #################################################################
 # Declared ADV profiles
+#
+# Each profile references the real upstream class it constrains.
 #################################################################
 
 adv:observation-v1 a adv:Profile ;
   adv:profileId "adv.observation" ;
   adv:profileVersion "1.0.0" ;
-  adv:appliesTo aim:Observation ;
+  adv:appliesTo sosa:Observation ;
   dct:description "Profile for time-stamped measurements (sensor or EO observations)." .
 
 adv:parcel-crop-v1 a adv:Profile ;
   adv:profileId "adv.parcel-crop" ;
   adv:profileVersion "1.0.0" ;
-  adv:appliesTo aim:FeatureOfInterest ;
+  adv:appliesTo saref4agri:Parcel ;
   dct:description "Profile for parcels and crops, including location and crop characteristics." .
 
 adv:intervention-v1 a adv:Profile ;
   adv:profileId "adv.intervention" ;
   adv:profileVersion "1.0.0" ;
-  adv:appliesTo aim:Activity ;
+  adv:appliesTo foodie:Intervention ;
   dct:description "Profile for field operations and interventions (activities, inputs, outputs)." .
 
 adv:animal-v1 a adv:Profile ;
   adv:profileId "adv.animal" ;
   adv:profileVersion "1.0.0" ;
-  adv:appliesTo aim:Animal ;
+  adv:appliesTo saref4agri:Animal ;
   dct:description "Profile for animal identification and core production or health attributes." .
 
 adv:alert-v1 a adv:Profile ;
   adv:profileId "adv.alert" ;
   adv:profileVersion "1.0.0" ;
-  adv:appliesTo aim:Alert ;
+  adv:appliesTo foodie:Alert ;
   dct:description "Profile for alerts and advisories (pest, disease, weather, management notices)." .
 
 #################################################################
 # References to external namespaces (documentation only)
+#
+# These declarations make the upstream classes visible to RDFS-
+# aware tools without requiring a full import of each ontology.
 #################################################################
 
-aim:Observation a rdfs:Class .
-aim:FeatureOfInterest a rdfs:Class .
-aim:Activity a rdfs:Class .
-aim:Animal a rdfs:Class .
-aim:Alert a rdfs:Class .
-ids:Resource a rdfs:Class .
+sosa:Observation       a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+sosa:FeatureOfInterest a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+sosa:Sensor            a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+saref4agri:Parcel      a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+saref4agri:Crop        a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+saref4agri:Animal      a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+foodie:Intervention    a rdfs:Class ; rdfs:isDefinedBy <http://foodie-cloud.com/model/foodie#> .
+foodie:Alert           a rdfs:Class ; rdfs:isDefinedBy <http://foodie-cloud.com/model/foodie#> .
+dcat:Dataset           a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .

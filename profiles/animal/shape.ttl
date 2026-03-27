@@ -1,7 +1,8 @@
-@prefix sh:   <http://www.w3.org/ns/shacl#> .
-@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-@prefix aim:  <https://w3id.org/aim#> .
-@prefix adv:  <https://w3id.org/adv/core#> .
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
+@prefix schema:     <https://schema.org/> .
+@prefix adv:        <https://w3id.org/adv/core#> .
 
 #################################################################
 # SHACL: ADV Animal Profile v1.0.0
@@ -10,11 +11,15 @@
 # Defines minimal constraints for describing an animal or group of
 # animals with identifiers, species, birth date, and optional
 # production or health indicators.
+#
+# UPSTREAM ALIGNMENT
+# Target class: saref4agri:Animal (ETSI SAREF4AGRI)
+# Common props: schema:species, schema:birthDate (Schema.org)
 #################################################################
 
 adv:AnimalShape
   a sh:NodeShape ;
-  sh:targetClass aim:Animal ;
+  sh:targetClass saref4agri:Animal ;
 
   #################################################################
   # 1) External identifier
@@ -30,53 +35,53 @@ adv:AnimalShape
   # 2) Species or type
   #################################################################
   sh:property [
-    sh:path aim:species ;
+    sh:path schema:species ;
     sh:minCount 1 ;
     sh:nodeKind sh:IRI ;
-    sh:message "Animal must have aim:species (IRI reference to a species term)." ;
+    sh:message "Animal must have schema:species (IRI reference to a species term)." ;
   ] ;
 
   #################################################################
   # 3) Date of birth
   #################################################################
   sh:property [
-    sh:path aim:birthDate ;
+    sh:path schema:birthDate ;
     sh:minCount 1 ;
     sh:datatype xsd:date ;
-    sh:message "Animal must have aim:birthDate (xsd:date)." ;
+    sh:message "Animal must have schema:birthDate (xsd:date)." ;
   ] ;
 
   #################################################################
   # 4) Optional sex
   #################################################################
   sh:property [
-    sh:path aim:sex ;
+    sh:path schema:gender ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI ;
     sh:severity sh:Info ;
-    sh:message "Optional: aim:sex (IRI for male/female/other)." ;
+    sh:message "Optional: schema:gender (IRI for male/female/other)." ;
   ] ;
 
   #################################################################
   # 5) Optional production type
   #################################################################
   sh:property [
-    sh:path aim:productionType ;
+    sh:path adv:productionType ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI ;
     sh:severity sh:Info ;
-    sh:message "Optional: aim:productionType (IRI for dairy, meat, egg, etc.)." ;
+    sh:message "Optional: adv:productionType (IRI for dairy, meat, egg, etc.)." ;
   ] ;
 
   #################################################################
   # 6) Optional parent link
   #################################################################
   sh:property [
-    sh:path aim:hasParent ;
+    sh:path adv:hasParent ;
     sh:maxCount 1 ;
     sh:nodeKind sh:BlankNodeOrIRI ;
     sh:severity sh:Info ;
-    sh:message "Optional: aim:hasParent (link to parent animal record)." ;
+    sh:message "Optional: adv:hasParent (link to parent animal record)." ;
   ] ;
 
   #################################################################

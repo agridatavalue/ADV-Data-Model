@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+
+  "@id": "https://catalog.example.org/datasets/obs-soilmoisture-field-a-2025-09",
+  "@type": "dcat:Dataset",
+
+  "dct:title": "Soil moisture observations — Field A (September 2025)",
+  "dct:description": "Volumetric soil moisture at 10 cm depth from sensor SM-10, sampled every 10 minutes.",
+  "dct:identifier": "obs-soilmoisture-field-a-2025-09",
+
+  "adv:profileId": "adv.observation",
+  "adv:profileVersion": "1.0.0",
+  "dct:conformsTo": { "@id": "https://w3id.org/adv/core#observation-v1" },
+
+  "dct:license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dct:issued": { "@value": "2025-10-01T08:00:00Z", "@type": "xsd:dateTime" },
+  "dct:publisher": { "@id": "https://tenant.example.org/org/ilvo" },
+
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dcat:mediaType": "application/ld+json",
+    "dcat:accessURL": { "@id": "https://data.example.org/observation/soilmoisture/field-a/" }
+  },
+
+  "odrl:hasPolicy": { "@id": "policy.jsonld" }
+}

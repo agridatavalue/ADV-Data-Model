@@ -189,8 +189,8 @@ ORDER BY ?severity ?start
 ```sparql
 SELECT ?animal ?species ?birthDate WHERE {
   ?animal a saref4agri:Animal ;
-          schema:species ?species ;
-          schema:birthDate ?birthDate .
+          adv:species ?species ;
+          adv:birthDate ?birthDate .
 }
 ORDER BY ?species ?birthDate
 ```

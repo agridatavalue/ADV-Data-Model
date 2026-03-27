@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Open Access — CC BY 4.0",
+  "dct:description": "Data may be freely used, shared, and adapted with attribution.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": { "@id": "http://www.w3.org/ns/odrl/2/use" }
+  }
+}

@@ -59,9 +59,9 @@ All references to `https://w3id.org/aim#` (a namespace that was anticipated but 
 | `aim:hasInput` | `prov:used` | W3C PROV |
 | `aim:hasOutput` | `prov:generated` | W3C PROV |
 | `aim:Animal` | `saref4agri:Animal` | ETSI SAREF4AGRI |
-| `aim:species` | `schema:species` | Schema.org |
-| `aim:birthDate` | `schema:birthDate` | Schema.org |
-| `aim:sex` | `schema:gender` | Schema.org |
+| `aim:species` | `adv:species` | ADV (no single upstream vocabulary covers livestock identification) |
+| `aim:birthDate` | `adv:birthDate` | ADV |
+| `aim:sex` | `adv:sex` | ADV |
 | `aim:Alert` | `foodie:Alert` | FOODIE |
 | `aim:alertType` | `dct:type` | Dublin Core |
 | `aim:severity` | `adv:severity` | ADV (no upstream equivalent) |

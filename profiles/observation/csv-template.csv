@@ -1,5 +1,5 @@
-# ADV Observation Profile - CSV Template
-# Each row represents one observation record.
+# ADV Observation Profile v2.0 - CSV Template
+# Each row represents one observation record. Property names align with SOSA/SSN.
 # Replace example values with your own. Keep column headers unchanged.
 
 externalId,resultTime,observedProperty,madeBySensor,featureOfInterest,value,unit,issuedAt

@@ -74,9 +74,9 @@ ADV v2.0 uses terms from these established standards (all part of the AIM vocabu
 ### Animal Profile
 | Property | Namespace | Description | Example |
 |----------|-----------|-------------|---------|
-| `schema:species` | Schema.org | Biological species (IRI) | `https://w3id.org/species/Bos_taurus` |
-| `schema:birthDate` | Schema.org | Date of birth | `2021-03-14` |
-| `schema:gender` | Schema.org | Sex (IRI) | `https://w3id.org/vocab/sex/Female` |
+| `adv:species` | ADV | Biological species (IRI) | `https://w3id.org/species/Bos_taurus` |
+| `adv:birthDate` | ADV | Date of birth | `2021-03-14` |
+| `adv:sex` | ADV | Sex (IRI) | `https://w3id.org/vocab/sex/Female` |
 | `adv:productionType` | ADV | Production type (IRI) | `https://w3id.org/vocab/productionType/Dairy` |
 | `adv:hasParent` | ADV | Link to parent animal | — |
 

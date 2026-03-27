@@ -1,0 +1,25 @@
+{
+  "registryVersion": "2.0.0",
+  "project": "AgriDataValue Data Model",
+  "lastUpdated": "2026-03-27T00:00:00Z",
+  "license": "CC BY 4.0",
+  "artifacts": [
+    {"title": "ADV Core Ontology", "path": "model/adv-core.ttl", "version": "2.0.0", "format": "text/turtle"},
+    {"title": "DCAT Wrapper SHACL Shapes", "path": "model/dsp-wrapper-shapes.ttl", "version": "2.0.0", "format": "text/turtle"},
+    {"title": "ODRL Policy SHACL Shapes", "path": "model/odrl-policy-shapes.ttl", "version": "2.0.0", "format": "text/turtle"},
+    {"title": "ADV JSON-LD Context", "path": "model/adv-context.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "ADV / AIM Profile Manifest", "path": "model/adv-aim-profile.ttl", "version": "2.0.0", "format": "text/turtle"},
+    {"title": "Observation Profile Shape", "path": "profiles/observation/shape.ttl", "version": "1.0.0", "format": "text/turtle"},
+    {"title": "Parcel-Crop Profile Shape", "path": "profiles/parcel-crop/shape.ttl", "version": "1.0.0", "format": "text/turtle"},
+    {"title": "Intervention Profile Shape", "path": "profiles/intervention/shape.ttl", "version": "1.0.0", "format": "text/turtle"},
+    {"title": "Animal Profile Shape", "path": "profiles/animal/shape.ttl", "version": "1.0.0", "format": "text/turtle"},
+    {"title": "Alert Profile Shape", "path": "profiles/alert/shape.ttl", "version": "1.0.0", "format": "text/turtle"},
+    {"title": "Offer Template", "path": "offers/offer.template.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "Offer Sample", "path": "offers/offer.sample.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "ODRL Policy: Open Access", "path": "offers/policy-templates/open-access.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "ODRL Policy: Research Only", "path": "offers/policy-templates/research-only.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "ODRL Policy: Attribution Required", "path": "offers/policy-templates/attribution-required.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "ODRL Policy: Time Limited", "path": "offers/policy-templates/time-limited.jsonld", "version": "2.0.0", "format": "application/ld+json"},
+    {"title": "Validator Script", "path": "validate/adv-validate.py", "version": "2.0.0", "format": "text/x-python"}
+  ]
+}

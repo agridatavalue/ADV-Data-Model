@@ -14,6 +14,37 @@ It combines three layers:
 
 The model provides **five operational profiles** covering the most common data exchange types in AgriDataValue and beyond.
 
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    ADV Data Package                         │
+│                                                             │
+│  ┌─────────────────────────┐  ┌──────────────────────────┐  │
+│  │   GOVERNANCE WRAPPER    │  │    DOMAIN CONTENT         │  │
+│  │   (dcat:Dataset)        │  │    (per profile)          │  │
+│  │                         │  │                           │  │
+│  │  dct:title              │  │  sosa:Observation         │  │
+│  │  dct:description        │  │  saref4agri:Parcel        │  │
+│  │  adv:profileId ─────────┼──┼→ foodie:Intervention      │  │
+│  │  adv:profileVersion     │  │  saref4agri:Animal        │  │
+│  │  dcat:distribution      │  │  foodie:Alert             │  │
+│  │  odrl:hasPolicy         │  │                           │  │
+│  │                         │  │  + SOSA, GeoSPARQL, QUDT, │  │
+│  │  Validates against:     │  │    PROV, Dublin Core props │  │
+│  │  dsp-wrapper-shapes.ttl │  │                           │  │
+│  │                         │  │  Validates against:       │  │
+│  └─────────────────────────┘  │  profiles/*/shape.ttl     │  │
+│                               └──────────────────────────┘  │
+│                                                             │
+│  Cross-check: profileId ←→ content @type                    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+For a **complete worked example** showing all three layers together, see `examples/observation-soil-moisture/`.
+
+For a **15-minute quickstart**, see `docs/QUICKSTART.md`.
+
 ---
 
 ## Included Profiles
@@ -45,7 +76,8 @@ Each profile folder includes:
 | **validate/** | A ready-to-use validator script (`adv-validate.py`) that checks data files. |
 | **registry/** | FAIR-style metadata registry describing each artifact. |
 | **w3id/** | Instructions for permanent namespace setup under `https://w3id.org/adv/`. |
-| **docs/** | Analysis, development plan, migration guide, SPARQL queries, and alignment notes. |
+| **examples/** | Complete end-to-end worked examples with content, offer, and policy files. |
+| **docs/** | Quickstart guide, migration guide, vocabulary guide, SPARQL queries, and alignment notes. |
 
 ---
 

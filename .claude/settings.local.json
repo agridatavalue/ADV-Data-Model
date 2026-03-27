@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(PYTHON=\"/c/Users/AnilTurkmayali/AppData/Local/Microsoft/WindowsApps/python3\" bash validate/run-all.sh)",
+      "Bash($PYTHON validate/adv-validate.py --wrapper examples/observation-soil-moisture/offer.jsonld --content examples/observation-soil-moisture/content.jsonld)"
+    ]
+  }
+}

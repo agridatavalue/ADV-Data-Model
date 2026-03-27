@@ -1,5 +1,5 @@
-# ADV Animal Profile - CSV Template
-# Each row represents one animal record.
+# ADV Animal Profile v2.0 - CSV Template
+# Each row represents one animal record. Properties are ADV-minted.
 # Replace example values with your own. Keep column headers unchanged.
 
 externalId,speciesIRI,birthDate,sexIRI,productionTypeIRI,parentId,issuedAt

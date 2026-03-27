@@ -48,9 +48,9 @@
     "Intervention":          "foodie:Intervention",
     "Alert":                 "foodie:Alert",
 
-    "species":               { "@id": "schema:species", "@type": "@id" },
-    "birthDate":             { "@id": "schema:birthDate", "@type": "xsd:date" },
-    "gender":                { "@id": "schema:gender", "@type": "@id" },
+    "species":               { "@id": "adv:species", "@type": "@id" },
+    "birthDate":             { "@id": "adv:birthDate", "@type": "xsd:date" },
+    "sex":                   { "@id": "adv:sex", "@type": "@id" },
 
     "startedAtTime":         { "@id": "prov:startedAtTime", "@type": "xsd:dateTime" },
     "endedAtTime":           { "@id": "prov:endedAtTime", "@type": "xsd:dateTime" },

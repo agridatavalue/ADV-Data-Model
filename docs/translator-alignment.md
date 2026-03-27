@@ -23,8 +23,9 @@ Some partners use NGSI-LD/DEMETER-shaped payloads. This note shows quick corresp
 - NGSI-LD inputs/outputs -> `prov:used` / `prov:generated`
 
 ## Animal (NGSI-LD -> ADV Animal)
-- NGSI-LD species -> `schema:species` (IRI)
-- NGSI-LD birthdate -> `schema:birthDate` (xsd:date)
+- NGSI-LD species -> `adv:species` (IRI)
+- NGSI-LD birthdate -> `adv:birthDate` (xsd:date)
+- NGSI-LD sex -> `adv:sex` (IRI)
 - NGSI-LD identifier -> `adv:externalId`
 
 ## Alert (NGSI-LD -> ADV Alert)

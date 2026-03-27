@@ -1,0 +1,78 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix aim:  <https://w3id.org/aim#> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Parcel-Crop Profile v1.0.0
+#
+# PURPOSE
+# Defines minimal constraints for describing a parcel (field/plot)
+# and its associated crop, including identifiers, location, and crop type.
+#################################################################
+
+adv:ParcelCropShape
+  a sh:NodeShape ;
+  sh:targetClass aim:FeatureOfInterest ;
+
+  #################################################################
+  # 1) Parcel identifier (external or local)
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Parcel must have adv:externalId (field or plot identifier)." ;
+  ] ;
+
+  #################################################################
+  # 2) Geometry or spatial reference
+  #################################################################
+  sh:property [
+    sh:path aim:hasGeometry ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Parcel must have aim:hasGeometry (reference to geometry or spatial object)." ;
+  ] ;
+
+  #################################################################
+  # 3) Crop association
+  #################################################################
+  sh:property [
+    sh:path aim:hasCrop ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Parcel must have aim:hasCrop (linked crop instance)." ;
+  ] ;
+
+  #################################################################
+  # 4) Crop type (species or category)
+  #################################################################
+  sh:property [
+    sh:path aim:cropType ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Crop must have aim:cropType (IRI to species or crop list entry)." ;
+  ] ;
+
+  #################################################################
+  # 5) Optional area size
+  #################################################################
+  sh:property [
+    sh:path aim:area ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:area (numeric, hectares or square meters)." ;
+  ] ;
+
+  #################################################################
+  # 6) Optional issue timestamp
+  #################################################################
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: adv:issuedAt indicates when this record was last updated." ;
+  ] .

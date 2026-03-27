@@ -1,0 +1,24 @@
+{
+    "@context": {
+      "dct": "http://purl.org/dc/terms/",
+      "ids": "https://w3id.org/idsa/core/",
+      "adv": "https://w3id.org/adv/core#"
+    },
+  
+    "@id": "https://broker.example.org/resources/obs-offer-2025-09-field-a",
+    "@type": "ids:Resource",
+  
+    "dct:title": "Soil moisture observations — Field A (September 2025)",
+    "dct:description": "Time-series of volumetric soil moisture at 10 cm depth from sensor SM-10 deployed in Field A, sampled every 10 minutes during September 2025.",
+    "dct:identifier": "obs-offer-2025-09-field-a",
+  
+    "adv:profileId": "adv.observation",
+    "adv:profileVersion": "1.0.0",
+  
+    "dct:license": "https://creativecommons.org/licenses/by/4.0/",
+    "dct:issued": "2025-10-01T08:00:00Z",
+    "dct:publisher": "https://tenant.example.org/org/ilvo",
+  
+    "dct:source": "https://data.example.org/observation/soilmoisture/field-a/"
+  }
+  

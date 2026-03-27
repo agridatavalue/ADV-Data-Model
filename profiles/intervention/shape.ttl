@@ -1,0 +1,100 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix aim:  <https://w3id.org/aim#> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Intervention Profile v1.0.0
+#
+# PURPOSE
+# Defines minimal constraints for describing field operations or
+# interventions, including type, timing, location (parcel),
+# and optionally inputs or outputs.
+#################################################################
+
+adv:InterventionShape
+  a sh:NodeShape ;
+  sh:targetClass aim:Activity ;
+
+  #################################################################
+  # 1) External identifier
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Each intervention must have adv:externalId (operation or task ID)." ;
+  ] ;
+
+  #################################################################
+  # 2) Type of intervention
+  #################################################################
+  sh:property [
+    sh:path aim:activityType ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Intervention must have aim:activityType (IRI describing the operation, e.g., spraying, fertilisation)." ;
+  ] ;
+
+  #################################################################
+  # 3) Start time
+  #################################################################
+  sh:property [
+    sh:path aim:startTime ;
+    sh:minCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:message "Intervention must have aim:startTime (xsd:dateTime)." ;
+  ] ;
+
+  #################################################################
+  # 4) End time
+  #################################################################
+  sh:property [
+    sh:path aim:endTime ;
+    sh:minCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:message "Intervention must have aim:endTime (xsd:dateTime)." ;
+  ] ;
+
+  #################################################################
+  # 5) Target parcel or feature
+  #################################################################
+  sh:property [
+    sh:path aim:hasFeatureOfInterest ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Intervention must specify aim:hasFeatureOfInterest (the parcel or field where it occurred)." ;
+  ] ;
+
+  #################################################################
+  # 6) Optional: input (e.g., fertilizer or pesticide)
+  #################################################################
+  sh:property [
+    sh:path aim:hasInput ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:hasInput (IRI or blank node for material/product used)." ;
+  ] ;
+
+  #################################################################
+  # 7) Optional: output (e.g., yield or biomass)
+  #################################################################
+  sh:property [
+    sh:path aim:hasOutput ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:hasOutput (IRI or blank node for resulting product or measure)." ;
+  ] ;
+
+  #################################################################
+  # 8) Optional issue timestamp
+  #################################################################
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: adv:issuedAt (xsd:dateTime) indicates record creation or update time." ;
+  ] .

@@ -1,0 +1,29 @@
+{
+    "@context": {
+      "aim": "https://w3id.org/aim#",
+      "adv": "https://w3id.org/adv/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+  
+    "@id": "https://data.your-domain.org/alert/REPLACE_ALERT_ID",
+    "@type": "aim:Alert",
+  
+    "adv:externalId": "REPLACE_UNIQUE_ALERT_CODE",
+  
+    "aim:alertType": "REPLACE_IRI_EG_https://w3id.org/alertType/Pest",
+  
+    "aim:severity": "REPLACE_IRI_EG_https://w3id.org/severity/High",
+  
+    "aim:message": "REPLACE_SHORT_HUMAN_READABLE_MESSAGE",
+  
+    "aim:hasFeatureOfInterest": {
+      "@id": "https://data.your-domain.org/feature/REPLACE_TARGET_ID",
+      "@type": "aim:FeatureOfInterest"
+    },
+  
+    "aim:startTime": "REPLACE_OPTIONAL_START_TIME_UTC_EG_2025-06-02T08:00:00Z",
+    "aim:endTime": "REPLACE_OPTIONAL_END_TIME_UTC_EG_2025-06-05T18:00:00Z",
+  
+    "adv:issuedAt": "REPLACE_OPTIONAL_ISSUED_TIME_UTC_EG_2025-06-02T07:55:00Z"
+  }
+  

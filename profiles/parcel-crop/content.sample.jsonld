@@ -1,0 +1,39 @@
+{
+    "@context": {
+      "aim": "https://w3id.org/aim#",
+      "adv": "https://w3id.org/adv/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "geojson": "https://purl.org/geojson/vocab#"
+    },
+  
+    "@id": "https://data.example.org/parcel/field-a",
+    "@type": "aim:FeatureOfInterest",
+  
+    "adv:externalId": "Field-A",
+  
+    "aim:hasGeometry": {
+      "@id": "https://data.example.org/geometry/field-a",
+      "@type": "geojson:Polygon",
+      "geojson:coordinates": [
+        [
+          [3.7451, 51.0192],
+          [3.7459, 51.0192],
+          [3.7459, 51.0184],
+          [3.7451, 51.0184],
+          [3.7451, 51.0192]
+        ]
+      ],
+      "geojson:crs": "EPSG:4326"
+    },
+  
+    "aim:hasCrop": {
+      "@id": "https://data.example.org/crop/field-a-2025",
+      "@type": "aim:Crop",
+      "aim:cropType": "https://w3id.org/crop/Wheat"
+    },
+  
+    "aim:area": { "@value": "2.45", "@type": "xsd:decimal" },
+  
+    "adv:issuedAt": "2025-03-15T12:00:00Z"
+  }
+  

@@ -1,0 +1,44 @@
+{
+    "@context": {
+      "aim": "https://w3id.org/aim#",
+      "adv": "https://w3id.org/adv/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "unit": "http://qudt.org/vocab/unit/"
+    },
+  
+    "@id": "https://data.example.org/intervention/ops-2025-04-10-001",
+    "@type": "aim:Activity",
+  
+    "adv:externalId": "OPS-2025-04-10-001",
+  
+    "aim:activityType": "https://w3id.org/activity/Spraying",
+  
+    "aim:startTime": "2025-04-10T06:30:00Z",
+    "aim:endTime": "2025-04-10T07:45:00Z",
+  
+    "aim:hasFeatureOfInterest": {
+      "@id": "https://data.example.org/parcel/field-a",
+      "@type": "aim:FeatureOfInterest"
+    },
+  
+    "aim:hasInput": {
+      "@id": "https://data.example.org/material/glyph-360",
+      "@type": "aim:Material",
+      "aim:quantity": {
+        "aim:value": { "@value": "120.0", "@type": "xsd:decimal" },
+        "aim:unit": "unit:Liter"
+      }
+    },
+  
+    "aim:hasOutput": {
+      "@id": "https://data.example.org/output/coverage-field-a-2025-04-10",
+      "@type": "aim:Product",
+      "aim:quantity": {
+        "aim:value": { "@value": "7.5", "@type": "xsd:decimal" },
+        "aim:unit": "unit:Hectare"
+      }
+    },
+  
+    "adv:issuedAt": "2025-04-10T08:00:00Z"
+  }
+  

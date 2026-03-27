@@ -1,0 +1,37 @@
+{
+  "@context": {
+    "dct": "http://purl.org/dc/terms/",
+    "ids": "https://w3id.org/idsa/core/",
+    "adv": "https://w3id.org/adv/core#"
+  },
+
+  "@id": "https://broker.your-domain.org/resources/REPLACE_WITH_STABLE_ID",
+  "@type": "ids:Resource",
+
+  "dct:title": "REPLACE WITH A CLEAR TITLE (e.g., Soil moisture — Field A, Sept 2025)",
+  "dct:description": "REPLACE WITH A SHORT DESCRIPTION (what, where, when, sampling rate).",
+  "dct:identifier": "REPLACE_WITH_STABLE_IDENTIFIER",
+
+  "adv:profileId": "REPLACE_WITH_ONE_OF: adv.observation | adv.parcel-crop | adv.intervention | adv.animal | adv.alert",
+  "adv:profileVersion": "1.0.0",
+
+  "dct:license": "https://creativecommons.org/licenses/by/4.0/",
+  "dct:issued": "2025-10-01T08:00:00Z",
+  "dct:publisher": "https://tenant.your-domain.org/org/REPLACE_ORG_ID",
+
+  "dct:source": "https://data.your-domain.org/path/to/the/dataset/or/api/",
+
+  "ids:representation": [
+    {
+      "@type": "ids:Representation",
+      "ids:mediaType": "application/ld+json",
+      "ids:instance": [
+        {
+          "@type": "ids:Artifact",
+          "dct:format": "jsonld",
+          "dct:source": "https://data.your-domain.org/path/to/the/dataset/or/api/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix aim: <https://w3id.org/aim#> .
+
+#################################################################
+# AIM Pinned Import
+# 
+# PURPOSE:
+# Provides a stable import reference to the official Agriculture
+# Information Model (AIM) ontology. This ensures that local tools,
+# validators, or triple stores can fetch or cache the correct file.
+#################################################################
+
+<> a owl:Ontology ;
+   dct:title "AIM Ontology Import Stub for ADV" ;
+   dct:description "This file allows tools to import the official AIM ontology used by the ADV Data Model." ;
+   dct:issued "2025-10-31"^^xsd:date ;
+   dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+   owl:imports <https://w3id.org/aim> ;
+   dct:publisher <https://w3id.org/adv> ;
+   dct:hasVersion "1.1.0" .

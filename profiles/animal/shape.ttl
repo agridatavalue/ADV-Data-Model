@@ -1,0 +1,91 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix aim:  <https://w3id.org/aim#> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Animal Profile v1.0.0
+#
+# PURPOSE
+# Defines minimal constraints for describing an animal or group of
+# animals with identifiers, species, birth date, and optional
+# production or health indicators.
+#################################################################
+
+adv:AnimalShape
+  a sh:NodeShape ;
+  sh:targetClass aim:Animal ;
+
+  #################################################################
+  # 1) External identifier
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Animal must have adv:externalId (official or farm ID)." ;
+  ] ;
+
+  #################################################################
+  # 2) Species or type
+  #################################################################
+  sh:property [
+    sh:path aim:species ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Animal must have aim:species (IRI reference to a species term)." ;
+  ] ;
+
+  #################################################################
+  # 3) Date of birth
+  #################################################################
+  sh:property [
+    sh:path aim:birthDate ;
+    sh:minCount 1 ;
+    sh:datatype xsd:date ;
+    sh:message "Animal must have aim:birthDate (xsd:date)." ;
+  ] ;
+
+  #################################################################
+  # 4) Optional sex
+  #################################################################
+  sh:property [
+    sh:path aim:sex ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:sex (IRI for male/female/other)." ;
+  ] ;
+
+  #################################################################
+  # 5) Optional production type
+  #################################################################
+  sh:property [
+    sh:path aim:productionType ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:productionType (IRI for dairy, meat, egg, etc.)." ;
+  ] ;
+
+  #################################################################
+  # 6) Optional parent link
+  #################################################################
+  sh:property [
+    sh:path aim:hasParent ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:hasParent (link to parent animal record)." ;
+  ] ;
+
+  #################################################################
+  # 7) Optional issue timestamp
+  #################################################################
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: adv:issuedAt (xsd:dateTime) indicates record update or registration time." ;
+  ] .

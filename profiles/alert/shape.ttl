@@ -1,0 +1,95 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix aim:  <https://w3id.org/aim#> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Alert Profile v1.0.0
+#
+# PURPOSE
+# Defines minimal constraints for exchanging alerts, advisories,
+# or notifications such as pest, disease, or weather warnings.
+#################################################################
+
+adv:AlertShape
+  a sh:NodeShape ;
+  sh:targetClass aim:Alert ;
+
+  #################################################################
+  # 1) External identifier
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Alert must have adv:externalId (unique alert ID)." ;
+  ] ;
+
+  #################################################################
+  # 2) Alert type (e.g., pest, disease, weather)
+  #################################################################
+  sh:property [
+    sh:path aim:alertType ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Alert must have aim:alertType (IRI describing the alert category)." ;
+  ] ;
+
+  #################################################################
+  # 3) Severity level
+  #################################################################
+  sh:property [
+    sh:path aim:severity ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Alert must have aim:severity (IRI referencing a severity level term)." ;
+  ] ;
+
+  #################################################################
+  # 4) Message or description
+  #################################################################
+  sh:property [
+    sh:path aim:message ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Alert must have aim:message (human-readable description)." ;
+  ] ;
+
+  #################################################################
+  # 5) Target feature (field, crop, animal, region)
+  #################################################################
+  sh:property [
+    sh:path aim:hasFeatureOfInterest ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Alert must specify aim:hasFeatureOfInterest (affected entity or location)." ;
+  ] ;
+
+  #################################################################
+  # 6) Optional start and end time
+  #################################################################
+  sh:property [
+    sh:path aim:startTime ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:startTime (when the alert became active)." ;
+  ] ;
+  sh:property [
+    sh:path aim:endTime ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: aim:endTime (when the alert expired or was resolved)." ;
+  ] ;
+
+  #################################################################
+  # 7) Optional issue timestamp
+  #################################################################
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional: adv:issuedAt (xsd:dateTime) indicates alert creation or update time." ;
+  ] .

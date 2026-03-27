@@ -1,0 +1,44 @@
+{
+    "@context": {
+      "aim": "https://w3id.org/aim#",
+      "adv": "https://w3id.org/adv/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "unit": "http://qudt.org/vocab/unit/"
+    },
+  
+    "@id": "https://data.your-domain.org/intervention/REPLACE_OPERATION_ID",
+    "@type": "aim:Activity",
+  
+    "adv:externalId": "REPLACE_HUMAN_READABLE_OPERATION_ID",
+  
+    "aim:activityType": "REPLACE_IRI_EG_https://w3id.org/activity/Spraying",
+  
+    "aim:startTime": "REPLACE_START_TIME_UTC_EG_2025-04-10T06:30:00Z",
+    "aim:endTime": "REPLACE_END_TIME_UTC_EG_2025-04-10T07:45:00Z",
+  
+    "aim:hasFeatureOfInterest": {
+      "@id": "https://data.your-domain.org/parcel/REPLACE_PARCEL_ID",
+      "@type": "aim:FeatureOfInterest"
+    },
+  
+    "aim:hasInput": {
+      "@id": "https://data.your-domain.org/material/REPLACE_INPUT_ID",
+      "@type": "aim:Material",
+      "aim:quantity": {
+        "aim:value": { "@value": "REPLACE_DECIMAL_VALUE", "@type": "xsd:decimal" },
+        "aim:unit": "REPLACE_UNIT_IRI_EG_unit:Liter"
+      }
+    },
+  
+    "aim:hasOutput": {
+      "@id": "https://data.your-domain.org/output/REPLACE_OUTPUT_ID",
+      "@type": "aim:Product",
+      "aim:quantity": {
+        "aim:value": { "@value": "REPLACE_DECIMAL_VALUE", "@type": "xsd:decimal" },
+        "aim:unit": "REPLACE_UNIT_IRI_EG_unit:Kilogram"
+      }
+    },
+  
+    "adv:issuedAt": "REPLACE_OPTIONAL_UPDATE_TIME_UTC_EG_2025-04-10T08:00:00Z"
+  }
+  

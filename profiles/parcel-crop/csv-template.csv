@@ -1,6 +1,0 @@
-# ADV Parcel-Crop Profile v2.0 - CSV Template
-# Each row represents one parcel with its active crop.
-# Replace example values with your own. Keep column headers unchanged.
-
-externalId,geometryType,geometryCoordinatesWGS84,cropInstanceId,cropSpeciesIRI,cropArea,issuedAt
-Field-A,Polygon,"[[[3.7451,51.0192],[3.7459,51.0192],[3.7459,51.0184],[3.7451,51.0184],[3.7451,51.0192]]]",field-a-2025,https://w3id.org/crop/Wheat,2.45,2025-03-15T12:00:00Z

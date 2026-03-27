@@ -1,6 +1,0 @@
-# ADV Alert Profile v2.0 - CSV Template
-# Each row represents one alert, advisory, or notification.
-# Replace example values with your own. Keep column headers unchanged.
-
-externalId,typeIRI,severityIRI,description,featureOfInterest,startedAtTime,endedAtTime,issuedAt
-ALERT-PEST-2025-06-02,https://w3id.org/alertType/Pest,https://w3id.org/severity/High,"High risk of aphid infestation detected in Field A. Apply treatment within 48 hours.",https://data.example.org/parcel/field-a,2025-06-02T08:00:00Z,2025-06-05T18:00:00Z,2025-06-02T07:55:00Z

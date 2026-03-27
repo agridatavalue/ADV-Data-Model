@@ -2,39 +2,42 @@
 """
 adv-validate.py — Validator for the ADV Data Model v2.0
 
-Validates:
-  1) DCAT wrapper (dataset self-description) against model/dsp-wrapper-shapes.ttl
-  2) Domain content against the appropriate profile SHACL (e.g., profiles/observation/shape.ttl)
-  3) Cross-check wrapper <-> content: adv:profileId vs. content @type (upstream class)
+Validates ADV data packages in three modes:
+
+  Full mode (wrapper + content):
+    Validates the DCAT wrapper, the domain content, and cross-checks them.
+
+  Content-only mode (--content-only):
+    Validates domain content against a profile SHACL shape without a wrapper.
+    Useful during development when you haven't created the offer yet.
 
 Usage examples:
-  # Validate wrapper + content with automatic profile detection from the wrapper:
-  python validate/adv-validate.py \
-    --wrapper offers/offer.sample.jsonld \
+  # Full validation (wrapper + content):
+  python validate/adv-validate.py \\
+    --wrapper offers/offer.sample.jsonld \\
     --content profiles/observation/content.sample.jsonld
 
-  # (Optional) Override default shapes:
-  python validate/adv-validate.py \
-    --wrapper offers/offer.sample.jsonld \
-    --content profiles/observation/content.sample.jsonld \
-    --wrapper-shapes model/dsp-wrapper-shapes.ttl \
+  # Content-only validation (no wrapper needed):
+  python validate/adv-validate.py \\
+    --content profiles/observation/content.sample.jsonld \\
+    --content-only --profile observation
+
+  # Override default shapes:
+  python validate/adv-validate.py \\
+    --wrapper offers/offer.sample.jsonld \\
+    --content profiles/observation/content.sample.jsonld \\
+    --wrapper-shapes model/dsp-wrapper-shapes.ttl \\
     --profile-shapes profiles/observation/shape.ttl
 
 Exit codes:
   0 = All validations passed
-  1 = Wrapper failed
+  1 = Wrapper failed (full mode only)
   2 = Content failed
-  3 = Both failed
+  3 = Both failed (full mode only)
   4 = Usage / file / runtime error
 
 Requirements:
-  pip install rdflib pyshacl
-
-This script assumes the standard repo layout:
-  model/dsp-wrapper-shapes.ttl
-  profiles/<profile_name>/shape.ttl
-Profile name is inferred from the wrapper's `adv:profileId` literal
-(e.g., "adv.observation" -> "observation").
+  pip install -r validate/requirements.txt
 """
 
 import argparse
@@ -54,7 +57,6 @@ except Exception as e:
 ADV = Namespace("https://w3id.org/adv/core#")
 
 # Upstream class URIs used by each ADV profile.
-# Updated in v2.0 to reference actual SOSA/SAREF4AGRI/FOODIE classes.
 SOSA = Namespace("http://www.w3.org/ns/sosa/")
 SAREF4AGRI = Namespace("https://saref.etsi.org/saref4agri/")
 FOODIE = Namespace("http://foodie-cloud.com/model/foodie#")
@@ -65,6 +67,15 @@ PROFILE_TO_CLASS = {
     "adv.intervention": str(FOODIE.Intervention),
     "adv.animal":       str(SAREF4AGRI.Animal),
     "adv.alert":        str(FOODIE.Alert),
+}
+
+# Short profile names for --content-only mode
+PROFILE_SHORT_NAMES = {
+    "observation":  "adv.observation",
+    "parcel-crop":  "adv.parcel-crop",
+    "intervention": "adv.intervention",
+    "animal":       "adv.animal",
+    "alert":        "adv.alert",
 }
 
 # -------------------------
@@ -124,10 +135,6 @@ def get_profile_id(wrapper_graph: Graph) -> str | None:
 
 
 def profile_to_folder(profile_id: str) -> str | None:
-    """
-    Convert "adv.observation" -> "observation"
-            "adv.parcel-crop" -> "parcel-crop"
-    """
     if not profile_id:
         return None
     if profile_id.startswith("adv."):
@@ -140,7 +147,6 @@ def safe_path(*parts) -> str:
 
 
 def get_types(content_graph: Graph) -> set[str]:
-    """Collects all RDF types present in the content graph (as strings)."""
     return {str(o) for _, _, o in content_graph.triples((None, RDF.type, None))}
 
 
@@ -152,30 +158,93 @@ def main():
     parser = argparse.ArgumentParser(
         description="Validate DCAT wrapper and domain content against ADV SHACL shapes."
     )
-    parser.add_argument("--wrapper", required=True, help="Path to DCAT wrapper JSON-LD (dcat:Dataset).")
-    parser.add_argument("--content", required=True, help="Path to domain content JSON-LD.")
+    parser.add_argument("--wrapper", default=None,
+                        help="Path to DCAT wrapper JSON-LD (dcat:Dataset). Required unless --content-only.")
+    parser.add_argument("--content", required=True,
+                        help="Path to domain content JSON-LD.")
+    parser.add_argument("--content-only", action="store_true",
+                        help="Validate content only (no wrapper). Requires --profile or --profile-shapes.")
+    parser.add_argument("--profile", default=None,
+                        choices=list(PROFILE_SHORT_NAMES.keys()),
+                        help="Profile name for --content-only mode (e.g., observation, animal).")
     parser.add_argument("--wrapper-shapes", default="model/dsp-wrapper-shapes.ttl",
                         help="Path to DCAT wrapper SHACL shapes TTL.")
-    # Keep legacy flag for backward compat
     parser.add_argument("--ids-shapes", default=None,
-                        help="(Deprecated) Alias for --wrapper-shapes. Use --wrapper-shapes instead.")
+                        help="(Deprecated) Alias for --wrapper-shapes.")
     parser.add_argument("--profile-shapes", default=None,
-                        help="Path to profile SHACL shapes TTL. If omitted, inferred from wrapper's adv:profileId.")
+                        help="Path to profile SHACL shapes TTL. If omitted, inferred from wrapper or --profile.")
     args = parser.parse_args()
 
-    # Resolve wrapper shapes path (prefer new flag, fallback to legacy)
+    # ---- Content-only mode ----
+    if args.content_only:
+        return run_content_only(args)
+
+    # ---- Full mode: require wrapper ----
+    if not args.wrapper:
+        sys.stderr.write("[ERROR] --wrapper is required unless using --content-only mode.\n")
+        sys.exit(4)
+
+    return run_full(args)
+
+
+def run_content_only(args):
+    """Validate content against profile SHACL only. No wrapper needed."""
+    # Determine profile shapes
+    profile_shapes_path = args.profile_shapes
+    if not profile_shapes_path:
+        if not args.profile:
+            sys.stderr.write("[ERROR] --content-only requires --profile or --profile-shapes.\n")
+            sys.exit(4)
+        profile_shapes_path = safe_path("profiles", args.profile, "shape.ttl")
+
+    for p in [args.content, profile_shapes_path]:
+        if not os.path.exists(p):
+            sys.stderr.write(f"[ERROR] File not found: {p}\n")
+            sys.exit(4)
+
+    try:
+        content_graph = load_graph(args.content)
+        profile_shapes_graph = load_graph(profile_shapes_path)
+    except Exception as e:
+        sys.stderr.write(f"[ERROR] {e}\n")
+        sys.exit(4)
+
+    content_ok, content_report = run_shacl(content_graph, profile_shapes_graph, "Domain Content")
+    print(content_report)
+
+    # Optional cross-check: verify @type matches expected class
+    if args.profile:
+        full_profile_id = PROFILE_SHORT_NAMES.get(args.profile)
+        expected_class = PROFILE_TO_CLASS.get(full_profile_id)
+        if expected_class:
+            content_types = get_types(content_graph)
+            if expected_class not in content_types:
+                sys.stderr.write(
+                    f"[ERROR] Content @type mismatch: profile '{args.profile}' expects '{expected_class}'.\n"
+                    f"        Found @type values: {sorted(content_types)}\n"
+                )
+                content_ok = False
+
+    if content_ok:
+        print("All checks passed.")
+        sys.exit(0)
+    else:
+        print("Content validation failed.")
+        sys.exit(2)
+
+
+def run_full(args):
+    """Full validation: wrapper + content + cross-check."""
     wrapper_shapes_path = args.wrapper_shapes
     if args.ids_shapes:
         sys.stderr.write("[WARN] --ids-shapes is deprecated. Use --wrapper-shapes instead.\n")
         wrapper_shapes_path = args.ids_shapes
 
-    # Basic file checks
     for p in [args.wrapper, args.content, wrapper_shapes_path]:
         if not os.path.exists(p):
             sys.stderr.write(f"[ERROR] File not found: {p}\n")
             sys.exit(4)
 
-    # Load wrapper and run DCAT wrapper SHACL
     try:
         wrapper_graph = load_graph(args.wrapper)
         wrapper_shapes_graph = load_graph(wrapper_shapes_path)
@@ -186,7 +255,6 @@ def main():
     wrapper_ok, wrapper_report = run_shacl(wrapper_graph, wrapper_shapes_graph, "DCAT Wrapper")
     print(wrapper_report)
 
-    # Determine profile shapes path if not provided
     profile_shapes_path = args.profile_shapes
     if not profile_shapes_path:
         profile_id = get_profile_id(wrapper_graph)
@@ -201,7 +269,6 @@ def main():
                              f"       Provide --profile-shapes explicitly.\n")
             sys.exit(4)
 
-    # Load content and run Profile SHACL
     try:
         content_graph = load_graph(args.content)
         profile_shapes_graph = load_graph(profile_shapes_path)
@@ -212,7 +279,7 @@ def main():
     content_ok, content_report = run_shacl(content_graph, profile_shapes_graph, "Domain Content")
     print(content_report)
 
-    # -------- Wrapper <-> Content Cross-check --------
+    # Cross-check
     try:
         profile_id = get_profile_id(wrapper_graph)
         expected_class = PROFILE_TO_CLASS.get(profile_id)
@@ -227,9 +294,7 @@ def main():
                 content_ok = False
     except Exception as e:
         sys.stderr.write(f"[WARN] Cross-check skipped due to unexpected error: {e}\n")
-    # ---------------------------------------------------
 
-    # Exit codes
     if wrapper_ok and content_ok:
         print("All checks passed.")
         sys.exit(0)

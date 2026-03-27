@@ -31,10 +31,10 @@
   "saref4agri:hasCrop": {
     "@id": "https://data.example.org/crop/field-a-2025",
     "@type": "saref4agri:Crop",
-    "foodie:cropSpecies": "https://w3id.org/crop/Wheat"
+    "foodie:cropSpecies": { "@id": "https://w3id.org/crop/Wheat" }
   },
 
   "foodie:cropArea": { "@value": "2.45", "@type": "xsd:decimal" },
 
-  "adv:issuedAt": "2025-03-15T12:00:00Z"
+  "adv:issuedAt": { "@value": "2025-03-15T12:00:00Z", "@type": "xsd:dateTime" }
 }

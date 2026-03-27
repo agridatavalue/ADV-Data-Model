@@ -1,7 +1,6 @@
 {
   "@context": {
     "saref4agri": "https://saref.etsi.org/saref4agri/",
-    "schema": "https://schema.org/",
     "adv": "https://w3id.org/adv/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
@@ -11,18 +10,17 @@
 
   "adv:externalId": "REPLACE_OFFICIAL_OR_FARM_ID",
 
-  "schema:species": "REPLACE_IRI_EG_https://w3id.org/species/Bos_taurus",
+  "adv:species": { "@id": "REPLACE_IRI_EG_https://w3id.org/species/Bos_taurus" },
 
-  "schema:birthDate": "REPLACE_DATE_EG_2021-03-14",
+  "adv:birthDate": { "@value": "REPLACE_DATE_EG_2021-03-14", "@type": "xsd:date" },
 
-  "schema:gender": "REPLACE_OPTIONAL_IRI_EG_https://w3id.org/vocab/sex/Female",
+  "adv:sex": { "@id": "REPLACE_OPTIONAL_IRI_EG_https://w3id.org/vocab/sex/Female" },
 
-  "adv:productionType": "REPLACE_OPTIONAL_IRI_EG_https://w3id.org/vocab/productionType/Dairy",
+  "adv:productionType": { "@id": "REPLACE_OPTIONAL_IRI_EG_https://w3id.org/vocab/productionType/Dairy" },
 
   "adv:hasParent": {
-    "@id": "https://data.your-domain.org/animal/REPLACE_PARENT_ID",
-    "@type": "saref4agri:Animal"
+    "@id": "https://data.your-domain.org/animal/REPLACE_PARENT_ID"
   },
 
-  "adv:issuedAt": "REPLACE_OPTIONAL_UPDATE_TIME_UTC_EG_2025-01-05T09:30:00Z"
+  "adv:issuedAt": { "@value": "REPLACE_OPTIONAL_UPDATE_TIME_UTC", "@type": "xsd:dateTime" }
 }

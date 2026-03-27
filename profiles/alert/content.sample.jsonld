@@ -13,8 +13,8 @@
 
   "adv:externalId": "ALERT-PEST-2025-06-02",
 
-  "dct:type": "https://w3id.org/alertType/Pest",
-  "adv:severity": "https://w3id.org/severity/High",
+  "dct:type": { "@id": "https://w3id.org/alertType/Pest" },
+  "adv:severity": { "@id": "https://w3id.org/severity/High" },
   "dct:description": "High risk of aphid infestation detected in Field A. Apply treatment within 48 hours.",
 
   "sosa:hasFeatureOfInterest": {
@@ -22,8 +22,8 @@
     "@type": "sosa:FeatureOfInterest"
   },
 
-  "prov:startedAtTime": "2025-06-02T08:00:00Z",
-  "prov:endedAtTime": "2025-06-05T18:00:00Z",
+  "prov:startedAtTime": { "@value": "2025-06-02T08:00:00Z", "@type": "xsd:dateTime" },
+  "prov:endedAtTime": { "@value": "2025-06-05T18:00:00Z", "@type": "xsd:dateTime" },
 
-  "adv:issuedAt": "2025-06-02T07:55:00Z"
+  "adv:issuedAt": { "@value": "2025-06-02T07:55:00Z", "@type": "xsd:dateTime" }
 }

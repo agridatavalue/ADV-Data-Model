@@ -3,7 +3,8 @@
     "dcat": "http://www.w3.org/ns/dcat#",
     "dct": "http://purl.org/dc/terms/",
     "odrl": "http://www.w3.org/ns/odrl/2/",
-    "adv": "https://w3id.org/adv/core#"
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
 
   "@id": "https://catalog.your-domain.org/datasets/REPLACE_WITH_STABLE_ID",
@@ -15,23 +16,23 @@
 
   "adv:profileId": "REPLACE_WITH_ONE_OF: adv.observation | adv.parcel-crop | adv.intervention | adv.animal | adv.alert",
   "adv:profileVersion": "1.0.0",
-  "dct:conformsTo": "https://w3id.org/adv/core#REPLACE_PROFILE_EG_observation-v1",
+  "dct:conformsTo": { "@id": "https://w3id.org/adv/core#REPLACE_PROFILE_EG_observation-v1" },
 
-  "dct:license": "https://creativecommons.org/licenses/by/4.0/",
-  "dct:issued": "2025-10-01T08:00:00Z",
-  "dct:publisher": "https://tenant.your-domain.org/org/REPLACE_ORG_ID",
+  "dct:license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dct:issued": { "@value": "2025-10-01T08:00:00Z", "@type": "xsd:dateTime" },
+  "dct:publisher": { "@id": "https://tenant.your-domain.org/org/REPLACE_ORG_ID" },
 
   "dcat:distribution": {
     "@type": "dcat:Distribution",
     "dcat:mediaType": "application/ld+json",
-    "dcat:accessURL": "https://data.your-domain.org/path/to/the/dataset/or/api/"
+    "dcat:accessURL": { "@id": "https://data.your-domain.org/path/to/the/dataset/or/api/" }
   },
 
   "odrl:hasPolicy": {
     "@type": "odrl:Policy",
     "odrl:permission": {
       "@type": "odrl:Permission",
-      "odrl:action": "http://www.w3.org/ns/odrl/2/use"
+      "odrl:action": { "@id": "http://www.w3.org/ns/odrl/2/use" }
     }
   }
 }

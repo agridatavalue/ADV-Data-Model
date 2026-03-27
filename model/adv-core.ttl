@@ -79,6 +79,49 @@ adv:observedAt a rdfs:Property ;
   rdfs:comment "Observation timestamp for convenience; aligns with sosa:resultTime semantics." .
 
 #################################################################
+# Animal-specific properties
+#
+# These are minted by ADV because no single upstream vocabulary
+# provides a stable, consistent set for livestock identification.
+# The target IRIs should come from established taxonomies
+# (NCBI Taxonomy, Wikidata, national registries).
+#################################################################
+
+adv:species a rdfs:Property ;
+  rdfs:label "species" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI identifying the biological species (e.g., from NCBI Taxonomy or Wikidata)." .
+
+adv:birthDate a rdfs:Property ;
+  rdfs:label "birth date" ;
+  rdfs:range xsd:date ;
+  rdfs:comment "Date of birth of the animal." .
+
+adv:sex a rdfs:Property ;
+  rdfs:label "sex" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the sex of the animal (male, female, other)." .
+
+adv:productionType a rdfs:Property ;
+  rdfs:label "production type" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the production purpose (dairy, meat, egg, wool, etc.)." .
+
+adv:hasParent a rdfs:Property ;
+  rdfs:label "has parent" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "Link to the parent animal record." .
+
+#################################################################
+# Alert-specific property
+#################################################################
+
+adv:severity a rdfs:Property ;
+  rdfs:label "severity" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the severity level of an alert." .
+
+#################################################################
 # Declared ADV profiles
 #
 # Each profile references the real upstream class it constrains.

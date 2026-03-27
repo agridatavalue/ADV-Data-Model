@@ -1,7 +1,6 @@
 @prefix sh:         <http://www.w3.org/ns/shacl#> .
 @prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
 @prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
-@prefix schema:     <https://schema.org/> .
 @prefix adv:        <https://w3id.org/adv/core#> .
 
 #################################################################
@@ -14,7 +13,9 @@
 #
 # UPSTREAM ALIGNMENT
 # Target class: saref4agri:Animal (ETSI SAREF4AGRI)
-# Common props: schema:species, schema:birthDate (Schema.org)
+# Animal-specific properties are minted by ADV because no single
+# upstream vocabulary (SAREF4AGRI, Schema.org, SmartDataModels)
+# provides a stable, consistent set for all five fields.
 #################################################################
 
 adv:AnimalShape
@@ -35,31 +36,31 @@ adv:AnimalShape
   # 2) Species or type
   #################################################################
   sh:property [
-    sh:path schema:species ;
+    sh:path adv:species ;
     sh:minCount 1 ;
     sh:nodeKind sh:IRI ;
-    sh:message "Animal must have schema:species (IRI reference to a species term)." ;
+    sh:message "Animal must have adv:species (IRI reference to a species term, e.g., from NCBI Taxonomy or Wikidata)." ;
   ] ;
 
   #################################################################
   # 3) Date of birth
   #################################################################
   sh:property [
-    sh:path schema:birthDate ;
+    sh:path adv:birthDate ;
     sh:minCount 1 ;
     sh:datatype xsd:date ;
-    sh:message "Animal must have schema:birthDate (xsd:date)." ;
+    sh:message "Animal must have adv:birthDate (xsd:date)." ;
   ] ;
 
   #################################################################
   # 4) Optional sex
   #################################################################
   sh:property [
-    sh:path schema:gender ;
+    sh:path adv:sex ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI ;
     sh:severity sh:Info ;
-    sh:message "Optional: schema:gender (IRI for male/female/other)." ;
+    sh:message "Optional: adv:sex (IRI for male/female/other)." ;
   ] ;
 
   #################################################################

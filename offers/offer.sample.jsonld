@@ -3,7 +3,8 @@
     "dcat": "http://www.w3.org/ns/dcat#",
     "dct": "http://purl.org/dc/terms/",
     "odrl": "http://www.w3.org/ns/odrl/2/",
-    "adv": "https://w3id.org/adv/core#"
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
 
   "@id": "https://catalog.example.org/datasets/obs-offer-2025-09-field-a",
@@ -15,16 +16,16 @@
 
   "adv:profileId": "adv.observation",
   "adv:profileVersion": "1.0.0",
-  "dct:conformsTo": "https://w3id.org/adv/core#observation-v1",
+  "dct:conformsTo": { "@id": "https://w3id.org/adv/core#observation-v1" },
 
-  "dct:license": "https://creativecommons.org/licenses/by/4.0/",
-  "dct:issued": "2025-10-01T08:00:00Z",
-  "dct:publisher": "https://tenant.example.org/org/ilvo",
+  "dct:license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dct:issued": { "@value": "2025-10-01T08:00:00Z", "@type": "xsd:dateTime" },
+  "dct:publisher": { "@id": "https://tenant.example.org/org/ilvo" },
 
   "dcat:distribution": {
     "@type": "dcat:Distribution",
     "dcat:mediaType": "application/ld+json",
-    "dcat:accessURL": "https://data.example.org/observation/soilmoisture/field-a/"
+    "dcat:accessURL": { "@id": "https://data.example.org/observation/soilmoisture/field-a/" }
   },
 
   "odrl:hasPolicy": {
@@ -32,12 +33,7 @@
     "dct:title": "Open Access — CC BY 4.0",
     "odrl:permission": {
       "@type": "odrl:Permission",
-      "odrl:action": "http://www.w3.org/ns/odrl/2/use",
-      "odrl:constraint": {
-        "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/attributionNotice",
-        "odrl:operator": "http://www.w3.org/ns/odrl/2/isA",
-        "odrl:rightOperand": "Credit ILVO as data provider"
-      }
+      "odrl:action": { "@id": "http://www.w3.org/ns/odrl/2/use" }
     }
   }
 }

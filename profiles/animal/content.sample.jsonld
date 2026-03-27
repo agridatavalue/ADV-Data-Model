@@ -1,7 +1,6 @@
 {
   "@context": {
     "saref4agri": "https://saref.etsi.org/saref4agri/",
-    "schema": "https://schema.org/",
     "adv": "https://w3id.org/adv/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
@@ -11,18 +10,17 @@
 
   "adv:externalId": "COW-1245",
 
-  "schema:species": "https://w3id.org/species/Bos_taurus",
+  "adv:species": { "@id": "https://w3id.org/species/Bos_taurus" },
 
-  "schema:birthDate": "2021-03-14",
+  "adv:birthDate": { "@value": "2021-03-14", "@type": "xsd:date" },
 
-  "schema:gender": "https://w3id.org/vocab/sex/Female",
+  "adv:sex": { "@id": "https://w3id.org/vocab/sex/Female" },
 
-  "adv:productionType": "https://w3id.org/vocab/productionType/Dairy",
+  "adv:productionType": { "@id": "https://w3id.org/vocab/productionType/Dairy" },
 
   "adv:hasParent": {
-    "@id": "https://data.example.org/animal/COW-0801",
-    "@type": "saref4agri:Animal"
+    "@id": "https://data.example.org/animal/COW-0801"
   },
 
-  "adv:issuedAt": "2025-01-05T09:30:00Z"
+  "adv:issuedAt": { "@value": "2025-01-05T09:30:00Z", "@type": "xsd:dateTime" }
 }

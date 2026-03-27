@@ -13,9 +13,9 @@
 
   "adv:externalId": "REPLACE_UNIQUE_ALERT_CODE",
 
-  "dct:type": "REPLACE_IRI_EG_https://w3id.org/alertType/Pest",
+  "dct:type": { "@id": "REPLACE_IRI_EG_https://w3id.org/alertType/Pest" },
 
-  "adv:severity": "REPLACE_IRI_EG_https://w3id.org/severity/High",
+  "adv:severity": { "@id": "REPLACE_IRI_EG_https://w3id.org/severity/High" },
 
   "dct:description": "REPLACE_SHORT_HUMAN_READABLE_MESSAGE",
 
@@ -24,8 +24,8 @@
     "@type": "sosa:FeatureOfInterest"
   },
 
-  "prov:startedAtTime": "REPLACE_OPTIONAL_START_TIME_UTC_EG_2025-06-02T08:00:00Z",
-  "prov:endedAtTime": "REPLACE_OPTIONAL_END_TIME_UTC_EG_2025-06-05T18:00:00Z",
+  "prov:startedAtTime": { "@value": "REPLACE_OPTIONAL_START_TIME_UTC", "@type": "xsd:dateTime" },
+  "prov:endedAtTime": { "@value": "REPLACE_OPTIONAL_END_TIME_UTC", "@type": "xsd:dateTime" },
 
-  "adv:issuedAt": "REPLACE_OPTIONAL_ISSUED_TIME_UTC_EG_2025-06-02T07:55:00Z"
+  "adv:issuedAt": { "@value": "REPLACE_OPTIONAL_ISSUED_TIME_UTC", "@type": "xsd:dateTime" }
 }

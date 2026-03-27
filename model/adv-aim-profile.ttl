@@ -9,8 +9,6 @@
 @prefix foodie:     <http://foodie-cloud.com/model/foodie#> .
 @prefix qudt:       <http://qudt.org/schema/qudt/> .
 @prefix prov:       <http://www.w3.org/ns/prov#> .
-@prefix schema:     <https://schema.org/> .
-
 #################################################################
 # ADV / AIM Profile Manifest
 #
@@ -70,8 +68,8 @@ adv:intervention-v1
 
 adv:animal-v1
   adv:usesClass    saref4agri:Animal ;
-  adv:usesProperty schema:species, schema:birthDate, schema:gender ;
-  rdfs:comment "Aligned with ETSI SAREF4AGRI and Schema.org vocabularies." .
+  adv:usesProperty adv:species, adv:birthDate, adv:sex, adv:productionType, adv:hasParent ;
+  rdfs:comment "Class from ETSI SAREF4AGRI. Animal-specific properties minted by ADV (no single upstream vocabulary covers all fields)." .
 
 #################################################################
 # Alert profile

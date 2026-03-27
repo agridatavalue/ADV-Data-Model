@@ -7,7 +7,8 @@
     "qudt": "http://qudt.org/schema/qudt/",
     "adv": "https://w3id.org/adv/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "unit": "http://qudt.org/vocab/unit/"
+    "unit": "http://qudt.org/vocab/unit/",
+    "schema": "https://schema.org/"
   },
 
   "@id": "https://data.your-domain.org/intervention/REPLACE_OPERATION_ID",
@@ -15,10 +16,10 @@
 
   "adv:externalId": "REPLACE_HUMAN_READABLE_OPERATION_ID",
 
-  "dct:type": "REPLACE_IRI_EG_https://w3id.org/activity/Spraying",
+  "dct:type": { "@id": "REPLACE_IRI_EG_https://w3id.org/activity/Spraying" },
 
-  "prov:startedAtTime": "REPLACE_START_TIME_UTC_EG_2025-04-10T06:30:00Z",
-  "prov:endedAtTime": "REPLACE_END_TIME_UTC_EG_2025-04-10T07:45:00Z",
+  "prov:startedAtTime": { "@value": "REPLACE_START_TIME_UTC", "@type": "xsd:dateTime" },
+  "prov:endedAtTime": { "@value": "REPLACE_END_TIME_UTC", "@type": "xsd:dateTime" },
 
   "sosa:hasFeatureOfInterest": {
     "@id": "https://data.your-domain.org/parcel/REPLACE_PARCEL_ID",
@@ -29,15 +30,15 @@
     "@id": "https://data.your-domain.org/material/REPLACE_INPUT_ID",
     "@type": "schema:Product",
     "qudt:numericValue": { "@value": "REPLACE_DECIMAL_VALUE", "@type": "xsd:decimal" },
-    "qudt:unit": "REPLACE_UNIT_IRI_EG_unit:Liter"
+    "qudt:unit": { "@id": "REPLACE_UNIT_IRI_EG_unit:Liter" }
   },
 
   "prov:generated": {
     "@id": "https://data.your-domain.org/output/REPLACE_OUTPUT_ID",
     "@type": "schema:Product",
     "qudt:numericValue": { "@value": "REPLACE_DECIMAL_VALUE", "@type": "xsd:decimal" },
-    "qudt:unit": "REPLACE_UNIT_IRI_EG_unit:Kilogram"
+    "qudt:unit": { "@id": "REPLACE_UNIT_IRI_EG_unit:Kilogram" }
   },
 
-  "adv:issuedAt": "REPLACE_OPTIONAL_UPDATE_TIME_UTC_EG_2025-04-10T08:00:00Z"
+  "adv:issuedAt": { "@value": "REPLACE_OPTIONAL_UPDATE_TIME_UTC", "@type": "xsd:dateTime" }
 }

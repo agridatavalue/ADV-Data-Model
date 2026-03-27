@@ -7,7 +7,8 @@
     "qudt": "http://qudt.org/schema/qudt/",
     "adv": "https://w3id.org/adv/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "unit": "http://qudt.org/vocab/unit/"
+    "unit": "http://qudt.org/vocab/unit/",
+    "schema": "https://schema.org/"
   },
 
   "@id": "https://data.example.org/intervention/ops-2025-04-10-001",
@@ -15,10 +16,10 @@
 
   "adv:externalId": "OPS-2025-04-10-001",
 
-  "dct:type": "https://w3id.org/activity/Spraying",
+  "dct:type": { "@id": "https://w3id.org/activity/Spraying" },
 
-  "prov:startedAtTime": "2025-04-10T06:30:00Z",
-  "prov:endedAtTime": "2025-04-10T07:45:00Z",
+  "prov:startedAtTime": { "@value": "2025-04-10T06:30:00Z", "@type": "xsd:dateTime" },
+  "prov:endedAtTime": { "@value": "2025-04-10T07:45:00Z", "@type": "xsd:dateTime" },
 
   "sosa:hasFeatureOfInterest": {
     "@id": "https://data.example.org/parcel/field-a",
@@ -29,15 +30,15 @@
     "@id": "https://data.example.org/material/glyph-360",
     "@type": "schema:Product",
     "qudt:numericValue": { "@value": "120.0", "@type": "xsd:decimal" },
-    "qudt:unit": "unit:Liter"
+    "qudt:unit": { "@id": "unit:Liter" }
   },
 
   "prov:generated": {
     "@id": "https://data.example.org/output/coverage-field-a-2025-04-10",
     "@type": "schema:Product",
     "qudt:numericValue": { "@value": "7.5", "@type": "xsd:decimal" },
-    "qudt:unit": "unit:Hectare"
+    "qudt:unit": { "@id": "unit:Hectare" }
   },
 
-  "adv:issuedAt": "2025-04-10T08:00:00Z"
+  "adv:issuedAt": { "@value": "2025-04-10T08:00:00Z", "@type": "xsd:dateTime" }
 }

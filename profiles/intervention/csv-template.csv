@@ -1,0 +1,6 @@
+# ADV Intervention Profile v2.0 - CSV Template
+# Each row represents one field operation/intervention.
+# Replace example values with your own. Keep column headers unchanged.
+
+externalId,typeIRI,startedAtTime,endedAtTime,featureOfInterest,usedId,usedQuantity,usedUnitIRI,generatedId,generatedQuantity,generatedUnitIRI,issuedAt
+OPS-2025-04-10-001,https://w3id.org/activity/Spraying,2025-04-10T06:30:00Z,2025-04-10T07:45:00Z,https://data.example.org/parcel/field-a,https://data.example.org/material/glyph-360,120.0,http://qudt.org/vocab/unit/Liter,https://data.example.org/output/coverage-field-a-2025-04-10,7.5,http://qudt.org/vocab/unit/Hectare,2025-04-10T08:00:00Z

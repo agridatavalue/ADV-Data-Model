@@ -1,0 +1,175 @@
+@prefix adv:        <https://w3id.org/adv/core#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix sosa:       <http://www.w3.org/ns/sosa/> .
+@prefix geo:        <http://www.opengis.net/ont/geosparql#> .
+@prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
+@prefix foodie:     <http://foodie-cloud.com/model/foodie#> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#> .
+@base <https://w3id.org/adv/core#> .
+
+#################################################################
+# ADV Core Ontology  v2.0.0
+#
+# PURPOSE:
+# Minimal core vocabulary for the AgriDataValue (ADV) data model.
+# It defines profile identification, versioning, and a few
+# cross-cutting properties common to all ADV profiles.
+#
+# CHANGE (v2.0.0):
+# - Replaced placeholder aim: namespace with actual upstream URIs
+#   (SOSA, GeoSPARQL, SAREF4AGRI, FOODIE).
+# - Replaced ids:Resource target with dcat:Dataset (DSP alignment).
+#################################################################
+
+adv: a owl:Ontology ;
+  dct:title "ADV Core Ontology" ;
+  dct:description "Core vocabulary defining ADV profiles, versioning, and cross-cutting terms for the AgriDataValue Data Model." ;
+  dct:issued "2025-10-30"^^xsd:date ;
+  dct:modified "2026-03-27"^^xsd:date ;
+  dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+  dct:publisher <https://w3id.org/adv> ;
+  dct:hasVersion "2.0.0" .
+
+#################################################################
+# Profile model
+#################################################################
+
+adv:Profile a rdfs:Class ;
+  rdfs:label "ADV Profile" ;
+  rdfs:comment "A named, versioned constraint set over domain content and the DCAT wrapper for a specific data exchange scenario." .
+
+adv:profileId a rdfs:Property ;
+  rdfs:label "profile identifier" ;
+  rdfs:domain adv:Profile ;
+  rdfs:range xsd:string ;
+  rdfs:comment "Stable identifier of an ADV profile (e.g., 'adv.observation')." .
+
+adv:profileVersion a rdfs:Property ;
+  rdfs:label "profile version" ;
+  rdfs:domain adv:Profile ;
+  rdfs:range xsd:string ;
+  rdfs:comment "Semantic version of the profile in MAJOR.MINOR.PATCH format (e.g., '1.0.0')." .
+
+adv:appliesTo a rdfs:Property ;
+  rdfs:label "applies to class" ;
+  rdfs:domain adv:Profile ;
+  rdfs:range rdfs:Class ;
+  rdfs:comment "Top-level domain class constrained by the profile." .
+
+#################################################################
+# Cross-cutting properties
+#################################################################
+
+adv:externalId a rdfs:Property ;
+  rdfs:label "external identifier" ;
+  rdfs:range xsd:string ;
+  rdfs:comment "Human-readable or system-specific identifier used by the data holder." .
+
+adv:issuedAt a rdfs:Property ;
+  rdfs:label "issued at" ;
+  rdfs:range xsd:dateTime ;
+  rdfs:comment "Timestamp when the content instance was issued or emitted." .
+
+adv:observedAt a rdfs:Property ;
+  rdfs:label "observed at" ;
+  rdfs:range xsd:dateTime ;
+  rdfs:comment "Observation timestamp for convenience; aligns with sosa:resultTime semantics." .
+
+#################################################################
+# Animal-specific properties
+#
+# These are minted by ADV because no single upstream vocabulary
+# provides a stable, consistent set for livestock identification.
+# The target IRIs should come from established taxonomies
+# (NCBI Taxonomy, Wikidata, national registries).
+#################################################################
+
+adv:species a rdfs:Property ;
+  rdfs:label "species" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI identifying the biological species (e.g., from NCBI Taxonomy or Wikidata)." .
+
+adv:birthDate a rdfs:Property ;
+  rdfs:label "birth date" ;
+  rdfs:range xsd:date ;
+  rdfs:comment "Date of birth of the animal." .
+
+adv:sex a rdfs:Property ;
+  rdfs:label "sex" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the sex of the animal (male, female, other)." .
+
+adv:productionType a rdfs:Property ;
+  rdfs:label "production type" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the production purpose (dairy, meat, egg, wool, etc.)." .
+
+adv:hasParent a rdfs:Property ;
+  rdfs:label "has parent" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "Link to the parent animal record." .
+
+#################################################################
+# Alert-specific property
+#################################################################
+
+adv:severity a rdfs:Property ;
+  rdfs:label "severity" ;
+  rdfs:range rdfs:Resource ;
+  rdfs:comment "IRI indicating the severity level of an alert." .
+
+#################################################################
+# Declared ADV profiles
+#
+# Each profile references the real upstream class it constrains.
+#################################################################
+
+adv:observation-v1 a adv:Profile ;
+  adv:profileId "adv.observation" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo sosa:Observation ;
+  dct:description "Profile for time-stamped measurements (sensor or EO observations)." .
+
+adv:parcel-crop-v1 a adv:Profile ;
+  adv:profileId "adv.parcel-crop" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo saref4agri:Parcel ;
+  dct:description "Profile for parcels and crops, including location and crop characteristics." .
+
+adv:intervention-v1 a adv:Profile ;
+  adv:profileId "adv.intervention" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo foodie:Intervention ;
+  dct:description "Profile for field operations and interventions (activities, inputs, outputs)." .
+
+adv:animal-v1 a adv:Profile ;
+  adv:profileId "adv.animal" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo saref4agri:Animal ;
+  dct:description "Profile for animal identification and core production or health attributes." .
+
+adv:alert-v1 a adv:Profile ;
+  adv:profileId "adv.alert" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo foodie:Alert ;
+  dct:description "Profile for alerts and advisories (pest, disease, weather, management notices)." .
+
+#################################################################
+# References to external namespaces (documentation only)
+#
+# These declarations make the upstream classes visible to RDFS-
+# aware tools without requiring a full import of each ontology.
+#################################################################
+
+sosa:Observation       a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+sosa:FeatureOfInterest a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+sosa:Sensor            a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/sosa/> .
+saref4agri:Parcel      a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+saref4agri:Crop        a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+saref4agri:Animal      a rdfs:Class ; rdfs:isDefinedBy <https://saref.etsi.org/saref4agri/> .
+foodie:Intervention    a rdfs:Class ; rdfs:isDefinedBy <http://foodie-cloud.com/model/foodie#> .
+foodie:Alert           a rdfs:Class ; rdfs:isDefinedBy <http://foodie-cloud.com/model/foodie#> .
+dcat:Dataset           a rdfs:Class ; rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .

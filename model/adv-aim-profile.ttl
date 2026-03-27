@@ -1,0 +1,83 @@
+@prefix adv:        <https://w3id.org/adv/core#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix sosa:       <http://www.w3.org/ns/sosa/> .
+@prefix geo:        <http://www.opengis.net/ont/geosparql#> .
+@prefix saref4agri: <https://saref.etsi.org/saref4agri/> .
+@prefix foodie:     <http://foodie-cloud.com/model/foodie#> .
+@prefix qudt:       <http://qudt.org/schema/qudt/> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+#################################################################
+# ADV / AIM Profile Manifest
+#
+# PURPOSE:
+# Documents which upstream (AIM-aligned) classes and properties
+# each ADV profile uses. Provides a single reference point for
+# tooling and auditors.
+#
+# This file is informational — it does not define new terms.
+#################################################################
+
+<> a owl:Ontology ;
+  dct:title "ADV / AIM Profile Manifest" ;
+  dct:description "Documents the upstream vocabulary terms used by each ADV operational profile." ;
+  dct:issued "2026-03-27"^^xsd:date ;
+  dct:hasVersion "2.0.0" .
+
+# ---- helper property for the manifest ----
+adv:usesClass    a rdfs:Property ; rdfs:label "uses class" .
+adv:usesProperty a rdfs:Property ; rdfs:label "uses property" .
+
+#################################################################
+# Observation profile
+#################################################################
+
+adv:observation-v1
+  adv:usesClass    sosa:Observation, sosa:FeatureOfInterest, sosa:Sensor ;
+  adv:usesProperty sosa:resultTime, sosa:observedProperty, sosa:madeBySensor,
+                   sosa:hasFeatureOfInterest, sosa:hasResult,
+                   qudt:numericValue, qudt:unit ;
+  rdfs:comment "Aligned with W3C SOSA and QUDT vocabularies." .
+
+#################################################################
+# Parcel-Crop profile
+#################################################################
+
+adv:parcel-crop-v1
+  adv:usesClass    saref4agri:Parcel, saref4agri:Crop ;
+  adv:usesProperty geo:hasGeometry, saref4agri:hasCrop,
+                   foodie:cropSpecies, foodie:cropArea ;
+  rdfs:comment "Aligned with ETSI SAREF4AGRI, OGC GeoSPARQL, and FOODIE vocabularies." .
+
+#################################################################
+# Intervention profile
+#################################################################
+
+adv:intervention-v1
+  adv:usesClass    foodie:Intervention, sosa:FeatureOfInterest ;
+  adv:usesProperty dct:type, prov:startedAtTime, prov:endedAtTime,
+                   sosa:hasFeatureOfInterest, prov:used, prov:generated,
+                   qudt:numericValue, qudt:unit ;
+  rdfs:comment "Aligned with FOODIE, W3C PROV-O, and SOSA vocabularies." .
+
+#################################################################
+# Animal profile
+#################################################################
+
+adv:animal-v1
+  adv:usesClass    saref4agri:Animal ;
+  adv:usesProperty adv:species, adv:birthDate, adv:sex, adv:productionType, adv:hasParent ;
+  rdfs:comment "Class from ETSI SAREF4AGRI. Animal-specific properties minted by ADV (no single upstream vocabulary covers all fields)." .
+
+#################################################################
+# Alert profile
+#################################################################
+
+adv:alert-v1
+  adv:usesClass    foodie:Alert, sosa:FeatureOfInterest ;
+  adv:usesProperty dct:type, dct:description,
+                   sosa:hasFeatureOfInterest,
+                   prov:startedAtTime, prov:endedAtTime ;
+  rdfs:comment "Aligned with FOODIE, W3C PROV-O, SOSA, and Dublin Core vocabularies." .

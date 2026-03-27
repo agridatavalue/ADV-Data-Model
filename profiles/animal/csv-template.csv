@@ -1,0 +1,6 @@
+# ADV Animal Profile v2.0 - CSV Template
+# Each row represents one animal record. Properties are ADV-minted.
+# Replace example values with your own. Keep column headers unchanged.
+
+externalId,speciesIRI,birthDate,sexIRI,productionTypeIRI,parentId,issuedAt
+COW-1245,https://w3id.org/species/Bos_taurus,2021-03-14,https://w3id.org/vocab/sex/Female,https://w3id.org/vocab/productionType/Dairy,https://data.example.org/animal/COW-0801,2025-01-05T09:30:00Z

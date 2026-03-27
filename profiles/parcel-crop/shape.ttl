@@ -44,27 +44,17 @@ adv:ParcelCropShape
   ] ;
 
   #################################################################
-  # 3) Crop association
+  # 3) Crop association (with sub-shape validation)
   #################################################################
   sh:property [
     sh:path saref4agri:hasCrop ;
     sh:minCount 1 ;
-    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:node adv:CropShape ;
     sh:message "Parcel must have saref4agri:hasCrop (linked crop instance)." ;
   ] ;
 
   #################################################################
-  # 4) Crop type (species or category)
-  #################################################################
-  sh:property [
-    sh:path foodie:cropSpecies ;
-    sh:minCount 1 ;
-    sh:nodeKind sh:IRI ;
-    sh:message "Crop must have foodie:cropSpecies (IRI to species or crop list entry)." ;
-  ] ;
-
-  #################################################################
-  # 5) Optional area size
+  # 4) Optional area size
   #################################################################
   sh:property [
     sh:path foodie:cropArea ;
@@ -75,7 +65,7 @@ adv:ParcelCropShape
   ] ;
 
   #################################################################
-  # 6) Optional issue timestamp
+  # 5) Optional issue timestamp
   #################################################################
   sh:property [
     sh:path adv:issuedAt ;
@@ -83,4 +73,19 @@ adv:ParcelCropShape
     sh:datatype xsd:dateTime ;
     sh:severity sh:Info ;
     sh:message "Optional: adv:issuedAt indicates when this record was last updated." ;
+  ] .
+
+
+#################################################################
+# Crop sub-shape
+#################################################################
+
+adv:CropShape
+  a sh:NodeShape ;
+
+  sh:property [
+    sh:path foodie:cropSpecies ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Crop must have foodie:cropSpecies (IRI to species or crop list entry)." ;
   ] .

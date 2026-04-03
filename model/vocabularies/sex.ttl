@@ -1,0 +1,32 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# ADV Sex Vocabulary
+#
+# SKOS concept scheme for animal sex classification.
+# Use these IRIs as values for adv:sex in the Animal profile.
+#################################################################
+
+adv:SexScheme a skos:ConceptScheme ;
+  skos:prefLabel "ADV Animal Sex Classification"@en ;
+  dct:description "Controlled vocabulary for animal sex used in ADV Animal profiles." ;
+  dct:issued "2026-04-03"^^xsd:date ;
+  dct:publisher <https://w3id.org/adv> .
+
+adv:sex-male a skos:Concept ;
+  skos:inScheme adv:SexScheme ;
+  skos:prefLabel "Male"@en ;
+  skos:definition "Male animal."@en .
+
+adv:sex-female a skos:Concept ;
+  skos:inScheme adv:SexScheme ;
+  skos:prefLabel "Female"@en ;
+  skos:definition "Female animal."@en .
+
+adv:sex-unknown a skos:Concept ;
+  skos:inScheme adv:SexScheme ;
+  skos:prefLabel "Unknown"@en ;
+  skos:definition "Sex not determined or not recorded."@en .

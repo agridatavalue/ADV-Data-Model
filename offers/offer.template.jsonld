@@ -14,7 +14,7 @@
   "dct:description": "REPLACE WITH A SHORT DESCRIPTION (what, where, when, sampling rate).",
   "dct:identifier": "REPLACE_WITH_STABLE_IDENTIFIER",
 
-  "adv:profileId": "REPLACE_WITH_ONE_OF: adv.observation | adv.parcel-crop | adv.intervention | adv.animal | adv.alert",
+  "adv:profileId": "REPLACE_WITH_ONE_OF: adv.observation | adv.parcel-crop | adv.intervention | adv.animal | adv.alert | adv.weather-observation | adv.soil-analysis",
   "adv:profileVersion": "1.0.0",
   "dct:conformsTo": { "@id": "https://w3id.org/adv/core#REPLACE_PROFILE_EG_observation-v1" },
 

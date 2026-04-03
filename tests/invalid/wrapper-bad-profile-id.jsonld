@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://test.example.org/datasets/invalid-profile",
+  "@type": "dcat:Dataset",
+  "dct:title": "Test dataset with invalid profile ID",
+  "dct:description": "This wrapper uses a profileId that is not in the allowed set.",
+  "dct:identifier": "test-invalid-profile",
+  "adv:profileId": "adv.nonexistent",
+  "adv:profileVersion": "1.0.0"
+}

@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "saref4agri": "https://saref.etsi.org/saref4agri/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://test.example.org/animal/valid-001",
+  "@type": "saref4agri:Animal",
+  "adv:externalId": "GR-CATTLE-2023-0042",
+  "adv:species": { "@id": "http://purl.obolibrary.org/obo/NCBITaxon_9913" },
+  "adv:birthDate": { "@value": "2023-03-12", "@type": "xsd:date" },
+  "adv:sex": { "@id": "https://w3id.org/adv/core#sex-female" },
+  "adv:productionType": { "@id": "https://w3id.org/adv/core#production-dairy" }
+}

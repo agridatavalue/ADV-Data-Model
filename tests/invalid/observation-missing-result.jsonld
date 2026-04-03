@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://test.example.org/obs/invalid-no-result",
+  "@type": "sosa:Observation",
+  "sosa:resultTime": { "@value": "2025-06-15T08:00:00Z", "@type": "xsd:dateTime" },
+  "sosa:observedProperty": { "@id": "http://qudt.org/vocab/quantitykind/Temperature" },
+  "sosa:madeBySensor": { "@id": "https://test.example.org/sensor/T-01" },
+  "sosa:hasFeatureOfInterest": { "@id": "https://test.example.org/field/alpha" }
+}

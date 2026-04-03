@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Seasonal Access",
+  "dct:description": "Data access is limited to a specific growing season window. Adjust both date constraints to match the relevant crop season.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/use",
+    "odrl:constraint": [
+      {
+        "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/dateTime",
+        "odrl:operator": "http://www.w3.org/ns/odrl/2/gteq",
+        "odrl:rightOperand": { "@value": "2026-03-01T00:00:00Z", "@type": "xsd:dateTime" }
+      },
+      {
+        "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/dateTime",
+        "odrl:operator": "http://www.w3.org/ns/odrl/2/lteq",
+        "odrl:rightOperand": { "@value": "2026-10-31T23:59:59Z", "@type": "xsd:dateTime" }
+      }
+    ]
+  }
+}

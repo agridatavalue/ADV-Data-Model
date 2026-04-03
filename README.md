@@ -1,121 +1,170 @@
-# AgriDataValue (ADV) Data Model
-**Version:** 2.0.0
-**Date:** 2026-03-27
+# ADV Data Model (AgriDCAT-AP)
+
+**The DCAT Application Profile for agricultural data spaces.**
+
+ADV lets you describe, validate, and govern agricultural datasets for sharing through IDSA/DSP-compliant data spaces. It bridges existing agricultural vocabularies (SOSA, SAREF4AGRI, FOODIE, AGROVOC) with data space governance (DCAT, ODRL) — without reinventing either.
+
+**Version:** 3.0.0 | **License:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | **Namespace:** `https://w3id.org/adv/core#`
 
 ---
 
-## Overview
-The **AgriDataValue (ADV) Data Model** defines a practical and reusable structure for sharing agricultural data across data spaces.
-It combines three layers:
-
-1. **AIM-aligned domain semantics** — Uses upstream vocabularies from the AIM stack: W3C SOSA, OGC GeoSPARQL, ETSI SAREF4AGRI, FOODIE/DEMETER
-2. **DCAT/DSP governance wrapper** — Dataset self-descriptions using W3C DCAT, aligned with the IDSA Dataspace Protocol
-3. **SHACL validation** — Machine-readable constraints for both layers, plus cross-checking
-
-The model provides **five operational profiles** covering the most common data exchange types in AgriDataValue and beyond.
-
-### Architecture
+## What It Does
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    ADV Data Package                         │
 │                                                             │
-│  ┌─────────────────────────┐  ┌──────────────────────────┐  │
-│  │   GOVERNANCE WRAPPER    │  │    DOMAIN CONTENT         │  │
-│  │   (dcat:Dataset)        │  │    (per profile)          │  │
-│  │                         │  │                           │  │
-│  │  dct:title              │  │  sosa:Observation         │  │
-│  │  dct:description        │  │  saref4agri:Parcel        │  │
-│  │  adv:profileId ─────────┼──┼→ foodie:Intervention      │  │
-│  │  adv:profileVersion     │  │  saref4agri:Animal        │  │
-│  │  dcat:distribution      │  │  foodie:Alert             │  │
-│  │  odrl:hasPolicy         │  │                           │  │
-│  │                         │  │  + SOSA, GeoSPARQL, QUDT, │  │
-│  │  Validates against:     │  │    PROV, Dublin Core props │  │
-│  │  dsp-wrapper-shapes.ttl │  │                           │  │
-│  │                         │  │  Validates against:       │  │
-│  └─────────────────────────┘  │  profiles/*/shape.ttl     │  │
-│                               └──────────────────────────┘  │
+│  ┌───────────────────────┐    ┌───────────────────────────┐ │
+│  │  GOVERNANCE WRAPPER   │    │  DOMAIN CONTENT           │ │
+│  │  (dcat:Dataset)       │    │  (per profile)            │ │
+│  │                       │    │                           │ │
+│  │  title, description   │    │  sosa:Observation         │ │
+│  │  adv:profileId ───────┼────┼→ saref4agri:Parcel        │ │
+│  │  odrl:hasPolicy       │    │  foodie:Intervention      │ │
+│  │  dcat:distribution    │    │  saref4agri:Animal        │ │
+│  │                       │    │  foodie:Alert             │ │
+│  └───────────────────────┘    └───────────────────────────┘ │
 │                                                             │
-│  Cross-check: profileId ←→ content @type                    │
+│  SHACL validation on both layers + cross-check              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-For a **complete worked example** showing all three layers together, see `examples/observation-soil-moisture/`.
+**Two layers, one package:**
+1. A **governance wrapper** (DCAT + ODRL) describes your dataset for catalog discovery and attaches usage policies
+2. The **domain content** follows an ADV profile that constrains agricultural data using upstream vocabularies
 
-For a **15-minute quickstart**, see `docs/QUICKSTART.md`.
-
----
-
-## Included Profiles
-
-| Profile | Target Class | Purpose | Example Use Case |
-|---------|-------------|---------|------------------|
-| **Observation** | `sosa:Observation` | Sensor or Earth Observation measurements (time, value, unit) | Soil moisture, temperature |
-| **Parcel-Crop** | `saref4agri:Parcel` | Field and crop descriptions | Field boundaries, crop type |
-| **Intervention** | `foodie:Intervention` | Field operations or activities | Spraying, irrigation, fertilisation |
-| **Animal** | `saref4agri:Animal` | Livestock and animal information | Animal identification, production events |
-| **Alert** | `foodie:Alert` | Notifications and advisories | Pest or disease alerts, weather warnings |
-
-Each profile folder includes:
-- A SHACL shape (`shape.ttl`)
-- A fill-in JSON-LD template (`content.template.jsonld`)
-- A working example (`content.sample.jsonld`)
-- A CSV header template (`csv-template.csv`)
+Both layers are validated with SHACL shapes, and a cross-check ensures consistency.
 
 ---
 
-## Repository Contents
+## Profiles
 
-| Folder | Purpose |
-|--------|---------|
-| **model/** | Core ontology (`adv-core.ttl`), DCAT wrapper shapes (`dsp-wrapper-shapes.ttl`), ODRL policy shapes, JSON-LD context, AIM profile manifest. |
-| **offers/** | DCAT dataset self-description templates and ODRL policy templates. |
-| **profiles/** | The five operational profiles with SHACL, JSON-LD, and CSV templates. |
-| **aim/** | Integration materials for the Agriculture Information Model (AIM). |
-| **validate/** | A ready-to-use validator script (`adv-validate.py`) that checks data files. |
-| **registry/** | FAIR-style metadata registry describing each artifact. |
-| **w3id/** | Instructions for permanent namespace setup under `https://w3id.org/adv/`. |
-| **examples/** | Complete end-to-end worked examples with content, offer, and policy files. |
-| **docs/** | Quickstart guide, migration guide, vocabulary guide, SPARQL queries, and alignment notes. |
+| Profile | Target Class | What It Covers |
+|---------|-------------|----------------|
+| **Observation** | `sosa:Observation` | Sensor or EO measurements (time, value, unit) |
+| **Weather Observation** | `sosa:Observation` | Meteorological data (temperature, precipitation, humidity, wind) |
+| **Soil Analysis** | `sosa:Observation` | Lab results (pH, nutrients, organic matter, texture) |
+| **Parcel-Crop** | `saref4agri:Parcel` | Field boundaries, crop type, area |
+| **Intervention** | `foodie:Intervention` | Field operations (spraying, irrigation, harvest) |
+| **Animal** | `saref4agri:Animal` | Livestock identification, species, production type |
+| **Alert** | `foodie:Alert` | Pest, disease, or weather notifications |
+
+Each profile folder contains:
+- `shape.ttl` — SHACL constraints
+- `content.template.jsonld` — Fill-in JSON-LD template
+- `content.sample.jsonld` — Working example
+- `csv-template.csv` — CSV headers with example row
 
 ---
 
-## Using the ADV Model
+## Quick Start
 
-### Step 1 — Choose Your Profile
-Select the profile that fits your data (for example, **observation** if you have sensor readings).
+### 1. Pick a profile
 
-### Step 2 — Prepare Your Data
-Open the JSON-LD template in the chosen profile folder.
-Replace the placeholder values with your real data.
-You can also fill in the CSV template and convert it to JSON-LD using simple scripts.
+Choose the profile that matches your data (e.g., `observation` for sensor readings).
 
-### Step 3 — Describe the Dataset
-Duplicate `offers/offer.template.jsonld`, fill the metadata fields (`dct:title`, `dct:description`, `adv:profileId`, `adv:profileVersion`, etc.), and select a usage policy from `offers/policy-templates/`.
+### 2. Fill in the template
 
-### Step 4 — Validate
-Run the included validator to make sure both files conform:
+Open `profiles/<your-profile>/content.template.jsonld` and replace the placeholders with your data.
 
-```
+### 3. Create the dataset wrapper
+
+Copy `offers/offer.template.jsonld`, fill in the metadata, and pick a policy from `offers/policy-templates/`.
+
+### 4. Validate
+
+```bash
+pip install -r validate/requirements.txt
+
 python validate/adv-validate.py \
-  --wrapper offers/offer.sample.jsonld \
-  --content profiles/observation/content.sample.jsonld
+  --wrapper your-offer.jsonld \
+  --content your-data.jsonld
 ```
 
-The script:
-- Checks the DCAT wrapper against `model/dsp-wrapper-shapes.ttl`
-- Checks the domain content against the relevant SHACL shape
-- Verifies that the declared `adv:profileId` matches the actual class used in the content
+Or validate content only (no wrapper needed):
 
-### Step 5 — Publish or Exchange
-Once validation passes, your data package is **ADV-compliant** and ready to be shared through an IDSA connector or any DCAT-compatible data space environment.
+```bash
+python validate/adv-validate.py \
+  --content your-data.jsonld \
+  --content-only --profile observation
+```
+
+### 5. Share
+
+Your validated data package is ready for any IDSA connector or DCAT-compatible data space.
 
 ---
 
-## Upstream Vocabulary Alignment
+## Repository Structure
 
-ADV v2.0 uses the **actual upstream URIs** from the AIM vocabulary stack:
+```
+model/
+  adv-core.ttl              Core ontology (profiles, properties)
+  adv-context.jsonld         Shared JSON-LD context
+  dsp-wrapper-shapes.ttl     SHACL for DCAT wrapper
+  odrl-policy-shapes.ttl     SHACL for ODRL policies
+  adv-aim-profile.ttl        AIM vocabulary manifest
+  vocabularies/              SKOS concept schemes (severity, sex, productionType)
+
+profiles/
+  observation/               Sensor / EO measurements
+  weather-observation/       Meteorological data
+  soil-analysis/             Soil lab results
+  parcel-crop/               Fields and crops
+  intervention/              Field operations
+  animal/                    Livestock
+  alert/                     Notifications
+
+offers/
+  offer.template.jsonld      DCAT wrapper template
+  offer.sample.jsonld        Working example
+  policy-templates/          10 reusable ODRL policies
+
+tests/
+  valid/                     Fixtures that should pass validation
+  invalid/                   Fixtures that should fail validation
+  run-tests.py               Conformance test runner
+
+validate/
+  adv-validate.py            Validator (wrapper + content + cross-check)
+
+docs/
+  QUICKSTART.md              15-minute tutorial
+  VOCABULARY_GUIDE.md        Where to find IRIs for each property
+  adapt-alignment.md         ADAPT Standard <-> ADV mapping
+  fiware-bridge.md           FIWARE Smart Data Models <-> ADV guide
+  translator-alignment.md    NGSI-LD <-> ADV quick mapping
+  MIGRATION.md               v2.x -> v3.0 migration guide
+  SPARQL.md                  Query patterns
+
+examples/
+  observation-soil-moisture/ Complete end-to-end example
+```
+
+---
+
+## Policy Templates
+
+ADV includes 10 ready-to-use ODRL policy templates:
+
+| Template | Description |
+|----------|-------------|
+| `open-access` | Free use with CC BY 4.0 |
+| `attribution-required` | Use with mandatory attribution |
+| `research-only` | Research purposes only, no redistribution |
+| `time-limited` | Access expires after a set date |
+| `consortium-only` | Restricted to project consortium members |
+| `spatial-restriction` | Limited to a geographic region (e.g., EU only) |
+| `advisory-only` | Only for generating farm advisory recommendations |
+| `anonymization-required` | Must anonymize before further use |
+| `seasonal-access` | Access limited to a growing season window |
+| `reciprocal-sharing` | Conditional on sharing equivalent data back |
+
+---
+
+## Upstream Vocabularies
+
+ADV reuses established standards — it does not reinvent them:
 
 | Domain | Vocabulary | Namespace |
 |--------|-----------|-----------|
@@ -127,64 +176,39 @@ ADV v2.0 uses the **actual upstream URIs** from the AIM vocabulary stack:
 | Provenance | W3C PROV | `http://www.w3.org/ns/prov#` |
 | Governance | W3C DCAT | `http://www.w3.org/ns/dcat#` |
 | Policies | W3C ODRL | `http://www.w3.org/ns/odrl/2/` |
+| Terms | FAO AGROVOC | `http://aims.fao.org/aos/agrovoc/` |
 
-A shared JSON-LD context file is available at `model/adv-context.jsonld`.
-
-For detailed term usage, see `aim/aim-quick-reference.md`.
-
----
-
-## Validation and Interoperability
-
-Validation is performed with **SHACL** rules to guarantee consistent data structures across pilots.
-This ensures:
-- Data discoverability and usability in DCAT/DSP-based data spaces.
-- Interoperability between applications using the same profiles.
-- Easier extension with local properties without breaking compatibility.
+For IRI lookup guidance, see `docs/VOCABULARY_GUIDE.md`.
 
 ---
 
-## FAIR and Reuse
+## Interoperability Bridges
 
-Each artifact is documented in `registry/artifacts-metadata.json` with:
-- version, path, and license
-- last update date
-- file format
+ADV connects to the major agricultural data ecosystems:
 
-All assets are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
-
----
-
-## Why Only Five Profiles
-
-These profiles were selected to cover 90% of data types across the AgriDataValue pilots.
-They can be easily extended if new scenarios arise (for example, market data or EO scenes) following the same design pattern.
+- **FIWARE / NGSI-LD** — See `docs/fiware-bridge.md` for mapping FIWARE AgriFood entities to ADV profiles
+- **ADAPT Standard** — See `docs/adapt-alignment.md` for wrapping precision ag datasets with ADV governance
+- **DEMETER AIM** — ADV uses AIM's upstream vocabularies directly (SOSA, SAREF4AGRI, FOODIE)
+- **INSPIRE / FOODIE** — Parcel and intervention profiles align with INSPIRE/FOODIE concepts
 
 ---
 
-## How to Extend or Contribute
+## Contributing
 
-1. Create a new folder under `profiles/` following the same structure.
-2. Add a SHACL shape, JSON-LD template, and sample file.
-3. Register the new profile in `model/adv-core.ttl`.
-4. Validate it with the existing script before submitting.
+1. Fork this repository
+2. Create a new folder under `profiles/` following the existing pattern
+3. Add a SHACL shape, JSON-LD template, sample, and CSV template
+4. Register the profile in `model/adv-core.ttl` and `model/dsp-wrapper-shapes.ttl`
+5. Run validation: `python validate/adv-validate.py --content your-sample.jsonld --content-only --profile your-profile`
+6. Run the test suite: `python tests/run-tests.py`
+7. Submit a pull request
 
-See `CONTRIBUTING.md` for full contribution guidelines.
-
----
-
-## Migrating from v1.x
-
-Version 2.0 introduces breaking namespace changes. See `docs/MIGRATION.md` for a complete mapping table and step-by-step migration guide.
+See `CONTRIBUTING.md` for full guidelines.
 
 ---
 
 ## License
 
-This project is licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
-You are free to share and adapt the model as long as proper credit is given.
+**Creative Commons Attribution 4.0 International (CC BY 4.0)** — free to share and adapt with attribution.
 
----
-
-**AgriDataValue Data Model**
-Developed under Horizon Europe Grant Agreement 101086461
+Developed under **Horizon Europe Grant Agreement 101086461** (AgriDataValue).

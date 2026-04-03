@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Spatial Restriction — EU Only",
+  "dct:description": "Data may only be used within the European Union. Adjust the rightOperand to restrict to a different region.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/use",
+    "odrl:constraint": {
+      "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/spatial",
+      "odrl:operator": "http://www.w3.org/ns/odrl/2/eq",
+      "odrl:rightOperand": { "@id": "http://publications.europa.eu/resource/authority/continent/EUROPE" }
+    }
+  }
+}

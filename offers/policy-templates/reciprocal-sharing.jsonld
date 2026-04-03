@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Reciprocal Data Sharing",
+  "dct:description": "Data may be used on condition that the consumer shares equivalent data back to the provider. Ensures fair, two-way data exchange.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/use",
+    "odrl:duty": [
+      {
+        "@type": "odrl:Duty",
+        "odrl:action": "http://www.w3.org/ns/odrl/2/attribute"
+      },
+      {
+        "@type": "odrl:Duty",
+        "odrl:action": "http://www.w3.org/ns/odrl/2/compensate",
+        "odrl:constraint": {
+          "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/payAmount",
+          "odrl:operator": "http://www.w3.org/ns/odrl/2/eq",
+          "odrl:rightOperand": "equivalent-data-sharing"
+        }
+      }
+    ]
+  }
+}

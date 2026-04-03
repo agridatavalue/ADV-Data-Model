@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://test.example.org/datasets/valid-wrapper-001",
+  "@type": "dcat:Dataset",
+  "dct:title": "Test observation dataset",
+  "dct:description": "Valid wrapper for conformance testing.",
+  "dct:identifier": "test-obs-001",
+  "adv:profileId": "adv.observation",
+  "adv:profileVersion": "1.0.0",
+  "dct:conformsTo": { "@id": "https://w3id.org/adv/core#observation-v1" },
+  "dct:license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+  "dct:issued": { "@value": "2025-06-15T12:00:00Z", "@type": "xsd:dateTime" },
+  "dct:publisher": { "@id": "https://test.example.org/org/test-lab" },
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dcat:mediaType": "application/ld+json",
+    "dcat:accessURL": { "@id": "https://test.example.org/data/obs/" }
+  },
+  "odrl:hasPolicy": {
+    "@type": "odrl:Policy",
+    "odrl:permission": {
+      "@type": "odrl:Permission",
+      "odrl:action": { "@id": "http://www.w3.org/ns/odrl/2/use" }
+    }
+  }
+}

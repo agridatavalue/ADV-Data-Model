@@ -1,0 +1,47 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# ADV Production Type Vocabulary
+#
+# SKOS concept scheme for livestock production purposes.
+# Use these IRIs as values for adv:productionType in the Animal profile.
+#################################################################
+
+adv:ProductionTypeScheme a skos:ConceptScheme ;
+  skos:prefLabel "ADV Livestock Production Types"@en ;
+  dct:description "Controlled vocabulary for livestock production purposes used in ADV Animal profiles." ;
+  dct:issued "2026-04-03"^^xsd:date ;
+  dct:publisher <https://w3id.org/adv> .
+
+adv:production-dairy a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Dairy"@en ;
+  skos:definition "Animal raised primarily for milk production."@en .
+
+adv:production-meat a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Meat"@en ;
+  skos:definition "Animal raised primarily for meat production."@en .
+
+adv:production-egg a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Egg"@en ;
+  skos:definition "Animal raised primarily for egg production."@en .
+
+adv:production-wool a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Wool"@en ;
+  skos:definition "Animal raised primarily for wool or fibre production."@en .
+
+adv:production-dual-purpose a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Dual Purpose"@en ;
+  skos:definition "Animal raised for two primary outputs (e.g., milk and meat)."@en .
+
+adv:production-breeding a skos:Concept ;
+  skos:inScheme adv:ProductionTypeScheme ;
+  skos:prefLabel "Breeding"@en ;
+  skos:definition "Animal maintained primarily for breeding and genetic improvement."@en .

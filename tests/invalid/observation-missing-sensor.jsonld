@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "unit": "http://qudt.org/vocab/unit/"
+  },
+  "@id": "https://test.example.org/obs/invalid-no-sensor",
+  "@type": "sosa:Observation",
+  "sosa:resultTime": { "@value": "2025-06-15T08:00:00Z", "@type": "xsd:dateTime" },
+  "sosa:observedProperty": { "@id": "http://qudt.org/vocab/quantitykind/Temperature" },
+  "sosa:hasFeatureOfInterest": { "@id": "https://test.example.org/field/alpha" },
+  "sosa:hasResult": {
+    "qudt:numericValue": { "@value": "18.5", "@type": "xsd:decimal" },
+    "qudt:unit": { "@id": "unit:DegreeCelsius" }
+  }
+}

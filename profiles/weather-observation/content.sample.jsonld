@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "unit": "http://qudt.org/vocab/unit/"
+  },
+
+  "@id": "https://data.example.org/weather/air-temp/station-ws01/2025-09-21T14:00:00Z",
+  "@type": "sosa:Observation",
+
+  "sosa:resultTime": { "@value": "2025-09-21T14:00:00Z", "@type": "xsd:dateTime" },
+
+  "sosa:observedProperty": { "@id": "http://qudt.org/vocab/quantitykind/Temperature" },
+
+  "sosa:madeBySensor": {
+    "@id": "https://data.example.org/station/WS-01",
+    "@type": "sosa:Sensor"
+  },
+
+  "sosa:hasFeatureOfInterest": {
+    "@id": "https://data.example.org/location/farm-delta-north",
+    "@type": "sosa:FeatureOfInterest"
+  },
+
+  "sosa:hasResult": {
+    "qudt:numericValue": { "@value": "22.4", "@type": "xsd:decimal" },
+    "qudt:unit": { "@id": "unit:DegreeCelsius" }
+  },
+
+  "adv:externalId": "WS01-TEMP-20250921T140000Z",
+  "adv:issuedAt": { "@value": "2025-09-21T14:00:05Z", "@type": "xsd:dateTime" }
+}

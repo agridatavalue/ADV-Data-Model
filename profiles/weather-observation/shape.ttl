@@ -1,0 +1,118 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix geo:  <http://www.opengis.net/ont/geosparql#> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Weather Observation Profile v1.0.0
+#
+# PURPOSE
+# Constraints for exchanging meteorological observations such as
+# temperature, humidity, precipitation, wind speed, and solar
+# radiation. Extends the base observation pattern with an optional
+# spatial coverage for weather station location.
+#
+# UPSTREAM ALIGNMENT
+# Target class: sosa:Observation (W3C SOSA)
+# Values:       qudt:numericValue, qudt:unit (QUDT)
+# Spatial:      geo:hasGeometry (OGC GeoSPARQL) — optional
+#################################################################
+
+adv:WeatherObservationShape
+  a sh:NodeShape ;
+  sh:targetClass sosa:Observation ;
+
+  #################################################################
+  # 1) Time of the result
+  #################################################################
+  sh:property [
+    sh:path sosa:resultTime ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:message "Weather observation must have sosa:resultTime (xsd:dateTime)." ;
+  ] ;
+
+  #################################################################
+  # 2) Observed property (e.g., air temperature, precipitation)
+  #################################################################
+  sh:property [
+    sh:path sosa:observedProperty ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Weather observation must have sosa:observedProperty (IRI, e.g., qudt:Temperature or AGROVOC term)." ;
+  ] ;
+
+  #################################################################
+  # 3) Sensor or weather station
+  #################################################################
+  sh:property [
+    sh:path sosa:madeBySensor ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Weather observation must have sosa:madeBySensor (weather station or sensor IRI)." ;
+  ] ;
+
+  #################################################################
+  # 4) Feature of Interest (location, region, or field)
+  #################################################################
+  sh:property [
+    sh:path sosa:hasFeatureOfInterest ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Weather observation must have sosa:hasFeatureOfInterest (location or coverage area)." ;
+  ] ;
+
+  #################################################################
+  # 5) Result (value + unit via QUDT)
+  #################################################################
+  sh:property [
+    sh:path sosa:hasResult ;
+    sh:minCount 1 ;
+    sh:node [
+      a sh:NodeShape ;
+      sh:property [
+        sh:path qudt:numericValue ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Result must include qudt:numericValue (xsd:decimal)." ;
+      ] ;
+      sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Result must include qudt:unit (IRI, e.g., unit:DegreeCelsius, unit:MilliM)." ;
+      ] ;
+    ] ;
+  ] ;
+
+  #################################################################
+  # 6) Optional: station location (GeoSPARQL geometry)
+  #################################################################
+  sh:property [
+    sh:path geo:hasGeometry ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: geo:hasGeometry for the weather station location (GeoSPARQL geometry)." ;
+  ] ;
+
+  #################################################################
+  # 7) Optional cross-cutting fields
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:severity sh:Info ;
+    sh:message "Optional adv:externalId (string) can carry the station or record ID." ;
+  ] ;
+
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional adv:issuedAt (xsd:dateTime) indicates when this record was emitted." ;
+  ] .

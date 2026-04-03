@@ -24,6 +24,7 @@
     "severity":              { "@id": "adv:severity", "@type": "@id" },
     "productionType":        { "@id": "adv:productionType", "@type": "@id" },
     "hasParent":             { "@id": "adv:hasParent", "@type": "@id" },
+    "samplingDepth":         { "@id": "adv:samplingDepth", "@type": "xsd:decimal" },
 
     "Observation":           "sosa:Observation",
     "FeatureOfInterest":     "sosa:FeatureOfInterest",

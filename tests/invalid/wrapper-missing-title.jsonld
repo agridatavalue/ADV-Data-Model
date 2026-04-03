@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "https://test.example.org/datasets/missing-title",
+  "@type": "dcat:Dataset",
+  "dct:description": "This wrapper is missing a required dct:title.",
+  "dct:identifier": "test-missing-title",
+  "adv:profileId": "adv.observation",
+  "adv:profileVersion": "1.0.0"
+}

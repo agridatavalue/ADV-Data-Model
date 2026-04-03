@@ -1,0 +1,6 @@
+# ADV Soil Analysis Profile v2.0 - CSV Template
+# Each row represents one soil analyte result. Property names align with SOSA/QUDT.
+# Replace example values with your own. Keep column headers unchanged.
+
+externalId,resultTime,observedProperty,featureOfInterest,value,unit,samplingDepth,madeBySensor,issuedAt
+LAB-2025-0487-PH,2025-10-15T09:00:00Z,http://aims.fao.org/aos/agrovoc/c_34901,https://data.example.org/parcel/field-b,6.8,http://qudt.org/vocab/unit/PH,0.30,https://data.example.org/lab/agrilab-athens,2025-10-20T11:30:00Z

@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Advisory Use Only",
+  "dct:description": "Data may only be used for generating farm advisory recommendations. Commercial trading, resale, or profiling of data providers is prohibited.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/use",
+    "odrl:constraint": {
+      "odrl:leftOperand": "http://www.w3.org/ns/odrl/2/purpose",
+      "odrl:operator": "http://www.w3.org/ns/odrl/2/eq",
+      "odrl:rightOperand": { "@id": "https://w3id.org/adv/vocab/purpose/FarmAdvisory" }
+    }
+  },
+
+  "odrl:prohibition": [
+    {
+      "@type": "odrl:Prohibition",
+      "odrl:action": "http://www.w3.org/ns/odrl/2/distribute"
+    },
+    {
+      "@type": "odrl:Prohibition",
+      "odrl:action": "http://www.w3.org/ns/odrl/2/sell"
+    }
+  ]
+}

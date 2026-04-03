@@ -1,0 +1,37 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# ADV Severity Vocabulary
+#
+# SKOS concept scheme for alert severity levels.
+# Use these IRIs as values for adv:severity in the Alert profile.
+#################################################################
+
+adv:SeverityScheme a skos:ConceptScheme ;
+  skos:prefLabel "ADV Alert Severity Levels"@en ;
+  dct:description "Controlled vocabulary for severity levels used in ADV Alert profiles." ;
+  dct:issued "2026-04-03"^^xsd:date ;
+  dct:publisher <https://w3id.org/adv> .
+
+adv:severity-low a skos:Concept ;
+  skos:inScheme adv:SeverityScheme ;
+  skos:prefLabel "Low"@en ;
+  skos:definition "Minor issue with no immediate impact on operations."@en .
+
+adv:severity-medium a skos:Concept ;
+  skos:inScheme adv:SeverityScheme ;
+  skos:prefLabel "Medium"@en ;
+  skos:definition "Moderate issue that may require attention within days."@en .
+
+adv:severity-high a skos:Concept ;
+  skos:inScheme adv:SeverityScheme ;
+  skos:prefLabel "High"@en ;
+  skos:definition "Serious issue requiring prompt action."@en .
+
+adv:severity-critical a skos:Concept ;
+  skos:inScheme adv:SeverityScheme ;
+  skos:prefLabel "Critical"@en ;
+  skos:definition "Urgent issue requiring immediate action to prevent significant loss."@en .

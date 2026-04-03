@@ -54,8 +54,8 @@ adv:DatasetShape
   sh:property [
     sh:path adv:profileId ;
     sh:minCount 1 ;
-    sh:in ("adv.observation" "adv.parcel-crop" "adv.intervention" "adv.animal" "adv.alert") ;
-    sh:message "Dataset must declare adv:profileId set to one of: adv.observation, adv.parcel-crop, adv.intervention, adv.animal, adv.alert." ;
+    sh:in ("adv.observation" "adv.parcel-crop" "adv.intervention" "adv.animal" "adv.alert" "adv.weather-observation" "adv.soil-analysis") ;
+    sh:message "Dataset must declare adv:profileId set to one of: adv.observation, adv.parcel-crop, adv.intervention, adv.animal, adv.alert, adv.weather-observation, adv.soil-analysis." ;
   ] ;
 
   # -- ADV profile version (semver)

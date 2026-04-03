@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+
+  "@type": "odrl:Policy",
+  "dct:title": "Anonymization Required",
+  "dct:description": "Data may be used and shared only after anonymization or aggregation. The consumer must anonymize the data before any further processing or redistribution.",
+
+  "odrl:permission": {
+    "@type": "odrl:Permission",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/use",
+    "odrl:duty": {
+      "@type": "odrl:Duty",
+      "odrl:action": "http://www.w3.org/ns/odrl/2/anonymize"
+    }
+  },
+
+  "odrl:prohibition": {
+    "@type": "odrl:Prohibition",
+    "odrl:action": "http://www.w3.org/ns/odrl/2/distribute",
+    "odrl:remedy": {
+      "@type": "odrl:Duty",
+      "odrl:action": "http://www.w3.org/ns/odrl/2/anonymize"
+    }
+  }
+}

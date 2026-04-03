@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-adv-validate.py — Validator for the ADV Data Model v2.0
+adv-validate.py — Validator for the ADV Data Model v3.0
 
 Validates ADV data packages in three modes:
 
@@ -62,20 +62,24 @@ SAREF4AGRI = Namespace("https://saref.etsi.org/saref4agri/")
 FOODIE = Namespace("http://foodie-cloud.com/model/foodie#")
 
 PROFILE_TO_CLASS = {
-    "adv.observation":  str(SOSA.Observation),
-    "adv.parcel-crop":  str(SAREF4AGRI.Parcel),
-    "adv.intervention": str(FOODIE.Intervention),
-    "adv.animal":       str(SAREF4AGRI.Animal),
-    "adv.alert":        str(FOODIE.Alert),
+    "adv.observation":          str(SOSA.Observation),
+    "adv.parcel-crop":          str(SAREF4AGRI.Parcel),
+    "adv.intervention":         str(FOODIE.Intervention),
+    "adv.animal":               str(SAREF4AGRI.Animal),
+    "adv.alert":                str(FOODIE.Alert),
+    "adv.weather-observation":  str(SOSA.Observation),
+    "adv.soil-analysis":        str(SOSA.Observation),
 }
 
 # Short profile names for --content-only mode
 PROFILE_SHORT_NAMES = {
-    "observation":  "adv.observation",
-    "parcel-crop":  "adv.parcel-crop",
-    "intervention": "adv.intervention",
-    "animal":       "adv.animal",
-    "alert":        "adv.alert",
+    "observation":          "adv.observation",
+    "parcel-crop":          "adv.parcel-crop",
+    "intervention":         "adv.intervention",
+    "animal":               "adv.animal",
+    "alert":                "adv.alert",
+    "weather-observation":  "adv.weather-observation",
+    "soil-analysis":        "adv.soil-analysis",
 }
 
 # -------------------------

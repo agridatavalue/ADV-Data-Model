@@ -1,0 +1,6 @@
+# ADV Weather Observation Profile v2.0 - CSV Template
+# Each row represents one weather observation. Property names align with SOSA/QUDT.
+# Replace example values with your own. Keep column headers unchanged.
+
+externalId,resultTime,observedProperty,madeBySensor,featureOfInterest,value,unit,issuedAt
+WS01-TEMP-20250921T140000Z,2025-09-21T14:00:00Z,http://qudt.org/vocab/quantitykind/Temperature,https://data.example.org/station/WS-01,https://data.example.org/location/farm-delta-north,22.4,http://qudt.org/vocab/unit/DegreeCelsius,2025-09-21T14:00:05Z

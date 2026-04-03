@@ -1,0 +1,140 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix geo:  <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix adv:  <https://w3id.org/adv/core#> .
+
+#################################################################
+# SHACL: ADV Soil Analysis Profile v1.0.0
+#
+# PURPOSE
+# Constraints for exchanging soil laboratory analysis results such
+# as pH, organic matter, nutrient concentrations (N, P, K), and
+# texture classification. Each record represents a single analyte
+# result from a soil sample.
+#
+# UPSTREAM ALIGNMENT
+# Target class: sosa:Observation (W3C SOSA)
+# Values:       qudt:numericValue, qudt:unit (QUDT)
+# Spatial:      geo:hasGeometry (OGC GeoSPARQL) — sampling point
+# Provenance:   prov:wasGeneratedBy (W3C PROV) — lab reference
+#
+# NOTE
+# For deep soil profile modelling (horizons, classification),
+# consider GloSIS (FAO/ISRIC). This profile covers the common
+# case of flat analyte-per-row lab results.
+#################################################################
+
+adv:SoilAnalysisShape
+  a sh:NodeShape ;
+  sh:targetClass sosa:Observation ;
+
+  #################################################################
+  # 1) Sample or analysis identifier
+  #################################################################
+  sh:property [
+    sh:path adv:externalId ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "Soil analysis must have adv:externalId (sample or lab report ID)." ;
+  ] ;
+
+  #################################################################
+  # 2) Time the sample was collected or analysed
+  #################################################################
+  sh:property [
+    sh:path sosa:resultTime ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:message "Soil analysis must have sosa:resultTime (date/time of analysis or sampling)." ;
+  ] ;
+
+  #################################################################
+  # 3) Analysed property (pH, organic matter, N, P, K, etc.)
+  #################################################################
+  sh:property [
+    sh:path sosa:observedProperty ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Soil analysis must have sosa:observedProperty (IRI for the analyte, e.g., AGROVOC or QUDT term)." ;
+  ] ;
+
+  #################################################################
+  # 4) Feature of Interest (field, parcel, or sampling point)
+  #################################################################
+  sh:property [
+    sh:path sosa:hasFeatureOfInterest ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "Soil analysis must have sosa:hasFeatureOfInterest (the sampled field or point)." ;
+  ] ;
+
+  #################################################################
+  # 5) Result (value + unit via QUDT)
+  #################################################################
+  sh:property [
+    sh:path sosa:hasResult ;
+    sh:minCount 1 ;
+    sh:node [
+      a sh:NodeShape ;
+      sh:property [
+        sh:path qudt:numericValue ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Result must include qudt:numericValue (xsd:decimal)." ;
+      ] ;
+      sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Result must include qudt:unit (IRI, e.g., unit:PH for pH, unit:MilliGM-PER-KiloGM for mg/kg)." ;
+      ] ;
+    ] ;
+  ] ;
+
+  #################################################################
+  # 6) Optional: sampling depth (metres)
+  #################################################################
+  sh:property [
+    sh:path adv:samplingDepth ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:severity sh:Info ;
+    sh:message "Optional: adv:samplingDepth (xsd:decimal, depth in metres where sample was taken)." ;
+  ] ;
+
+  #################################################################
+  # 7) Optional: sensor / lab that performed the analysis
+  #################################################################
+  sh:property [
+    sh:path sosa:madeBySensor ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: sosa:madeBySensor (laboratory or instrument IRI)." ;
+  ] ;
+
+  #################################################################
+  # 8) Optional: sampling point geometry
+  #################################################################
+  sh:property [
+    sh:path geo:hasGeometry ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:severity sh:Info ;
+    sh:message "Optional: geo:hasGeometry for the sampling point location." ;
+  ] ;
+
+  #################################################################
+  # 9) Optional issue timestamp
+  #################################################################
+  sh:property [
+    sh:path adv:issuedAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Info ;
+    sh:message "Optional adv:issuedAt (xsd:dateTime) indicates when this record was emitted." ;
+  ] .

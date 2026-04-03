@@ -1,0 +1,38 @@
+{
+  "@context": {
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "adv": "https://w3id.org/adv/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "unit": "http://qudt.org/vocab/unit/"
+  },
+
+  "@id": "https://data.example.org/soil/ph/field-b/2025-10-15",
+  "@type": "sosa:Observation",
+
+  "adv:externalId": "LAB-2025-0487-PH",
+
+  "sosa:resultTime": { "@value": "2025-10-15T09:00:00Z", "@type": "xsd:dateTime" },
+
+  "sosa:observedProperty": { "@id": "http://aims.fao.org/aos/agrovoc/c_34901" },
+
+  "sosa:hasFeatureOfInterest": {
+    "@id": "https://data.example.org/parcel/field-b",
+    "@type": "sosa:FeatureOfInterest"
+  },
+
+  "sosa:hasResult": {
+    "qudt:numericValue": { "@value": "6.8", "@type": "xsd:decimal" },
+    "qudt:unit": { "@id": "unit:PH" }
+  },
+
+  "adv:samplingDepth": { "@value": "0.30", "@type": "xsd:decimal" },
+
+  "sosa:madeBySensor": {
+    "@id": "https://data.example.org/lab/agrilab-athens",
+    "@type": "sosa:Sensor"
+  },
+
+  "adv:issuedAt": { "@value": "2025-10-20T11:30:00Z", "@type": "xsd:dateTime" }
+}

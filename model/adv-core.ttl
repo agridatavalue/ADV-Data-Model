@@ -11,27 +11,33 @@
 @base <https://w3id.org/adv/core#> .
 
 #################################################################
-# ADV Core Ontology  v2.0.0
+# ADV Core Ontology  v3.0.0  (AgriDCAT-AP)
 #
 # PURPOSE:
-# Minimal core vocabulary for the AgriDataValue (ADV) data model.
-# It defines profile identification, versioning, and a few
-# cross-cutting properties common to all ADV profiles.
+# Core vocabulary for the AgriDataValue (ADV) Data Model — the
+# DCAT Application Profile for agricultural data spaces.
+# Defines profile identification, versioning, controlled
+# vocabularies, and cross-cutting properties.
+#
+# CHANGE (v3.0.0):
+# - Added Weather Observation and Soil Analysis profiles.
+# - Added adv:samplingDepth property for soil analysis.
+# - Published SKOS concept schemes for severity, productionType, sex.
+# - Positioned as AgriDCAT-AP (DCAT-AP for agriculture).
 #
 # CHANGE (v2.0.0):
-# - Replaced placeholder aim: namespace with actual upstream URIs
-#   (SOSA, GeoSPARQL, SAREF4AGRI, FOODIE).
+# - Replaced placeholder aim: namespace with actual upstream URIs.
 # - Replaced ids:Resource target with dcat:Dataset (DSP alignment).
 #################################################################
 
 adv: a owl:Ontology ;
-  dct:title "ADV Core Ontology" ;
-  dct:description "Core vocabulary defining ADV profiles, versioning, and cross-cutting terms for the AgriDataValue Data Model." ;
+  dct:title "ADV Core Ontology — AgriDCAT-AP" ;
+  dct:description "Core vocabulary for the AgriDataValue (ADV) Data Model — the DCAT Application Profile for agricultural data spaces. Defines profile identification, versioning, controlled vocabularies, and cross-cutting properties." ;
   dct:issued "2025-10-30"^^xsd:date ;
-  dct:modified "2026-03-27"^^xsd:date ;
+  dct:modified "2026-04-03"^^xsd:date ;
   dct:license <https://creativecommons.org/licenses/by/4.0/> ;
   dct:publisher <https://w3id.org/adv> ;
-  dct:hasVersion "2.0.0" .
+  dct:hasVersion "3.0.0" .
 
 #################################################################
 # Profile model
@@ -122,6 +128,15 @@ adv:severity a rdfs:Property ;
   rdfs:comment "IRI indicating the severity level of an alert." .
 
 #################################################################
+# Soil-analysis-specific property
+#################################################################
+
+adv:samplingDepth a rdfs:Property ;
+  rdfs:label "sampling depth" ;
+  rdfs:range xsd:decimal ;
+  rdfs:comment "Depth in metres at which the soil sample was taken." .
+
+#################################################################
 # Declared ADV profiles
 #
 # Each profile references the real upstream class it constrains.
@@ -156,6 +171,18 @@ adv:alert-v1 a adv:Profile ;
   adv:profileVersion "1.0.0" ;
   adv:appliesTo foodie:Alert ;
   dct:description "Profile for alerts and advisories (pest, disease, weather, management notices)." .
+
+adv:weather-observation-v1 a adv:Profile ;
+  adv:profileId "adv.weather-observation" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo sosa:Observation ;
+  dct:description "Profile for meteorological observations (temperature, precipitation, humidity, wind)." .
+
+adv:soil-analysis-v1 a adv:Profile ;
+  adv:profileId "adv.soil-analysis" ;
+  adv:profileVersion "1.0.0" ;
+  adv:appliesTo sosa:Observation ;
+  dct:description "Profile for soil laboratory analysis results (pH, nutrients, organic matter, texture)." .
 
 #################################################################
 # References to external namespaces (documentation only)

@@ -23,8 +23,8 @@
 <> a owl:Ontology ;
   dct:title "ADV / AIM Profile Manifest" ;
   dct:description "Documents the upstream vocabulary terms used by each ADV operational profile." ;
-  dct:issued "2026-03-27"^^xsd:date ;
-  dct:hasVersion "2.0.0" .
+  dct:issued "2026-04-03"^^xsd:date ;
+  dct:hasVersion "3.0.0" .
 
 # ---- helper property for the manifest ----
 adv:usesClass    a rdfs:Property ; rdfs:label "uses class" .
@@ -81,3 +81,26 @@ adv:alert-v1
                    sosa:hasFeatureOfInterest,
                    prov:startedAtTime, prov:endedAtTime ;
   rdfs:comment "Aligned with FOODIE, W3C PROV-O, SOSA, and Dublin Core vocabularies." .
+
+#################################################################
+# Weather Observation profile
+#################################################################
+
+adv:weather-observation-v1
+  adv:usesClass    sosa:Observation, sosa:FeatureOfInterest, sosa:Sensor ;
+  adv:usesProperty sosa:resultTime, sosa:observedProperty, sosa:madeBySensor,
+                   sosa:hasFeatureOfInterest, sosa:hasResult,
+                   qudt:numericValue, qudt:unit, geo:hasGeometry ;
+  rdfs:comment "Extends the observation pattern with optional station geometry. Aligned with W3C SOSA, QUDT, and OGC GeoSPARQL." .
+
+#################################################################
+# Soil Analysis profile
+#################################################################
+
+adv:soil-analysis-v1
+  adv:usesClass    sosa:Observation, sosa:FeatureOfInterest, sosa:Sensor ;
+  adv:usesProperty sosa:resultTime, sosa:observedProperty, sosa:madeBySensor,
+                   sosa:hasFeatureOfInterest, sosa:hasResult,
+                   qudt:numericValue, qudt:unit, geo:hasGeometry,
+                   adv:samplingDepth ;
+  rdfs:comment "For soil lab analysis results. Aligned with W3C SOSA, QUDT, OGC GeoSPARQL. References GloSIS for deep soil modelling." .
